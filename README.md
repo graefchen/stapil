@@ -1,6 +1,7 @@
 # steam-web-api-library
 
 A botched together steam web api library for deno
+
 Based on the references of: https://partner.steamgames.com/doc/webapi and https://wiki.teamfortress.com/wiki/WebAPI
 
 ## Currently usable and decently programmed interfaces
@@ -19,5 +20,6 @@ They all use only GET reqeuests
 ## More will come *maybe* in the future
 
 - [ ] Better tests as the currenty are ... barely good
+- [ ] Better documentattion with what is returened...
 - [ ] More Interfaces
 - [ ] Work with Post Requests
