@@ -17,7 +17,7 @@ class ISteamWebAPIUtil {
    * @function GetSupportedAPIList - Version 1 - HTTP-Methode GET
    * @param {string} key - access key
    */
-  static async GetSupportedAPIList(key: string) {
+  static async GetSupportedAPIList(key?: string) {
     let link = "";
     if (key == undefined) {
       link =

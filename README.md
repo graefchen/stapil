@@ -7,11 +7,14 @@ https://wiki.teamfortress.com/wiki/WebAPI
 
 ## How to use:
 
-As deno can integrate modules simply by link you just need to add the link of this repository as a module import.
+As deno can integrate modules simply by link you just need to add the link of
+this repository as a module import.
 
-```typescript
-import * as stapil from "<link-of-repository-here>";
+```ts
+import * as stapil from "https://raw.githubusercontent.com/graefchen/stapil/main/mod.ts"
 ```
+
+If you want it have this library in your file structure you find information about `deno vendor` [here](https://deno.land/manual@v1.32.2/tools/vendor).
 
 ## Currently usable and decently programmed interfaces w/ return types
 

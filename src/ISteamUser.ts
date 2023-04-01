@@ -1,4 +1,4 @@
-import { SteamWebApiRequest } from "./util.ts";
+import { CheckValidSteamID, SteamWebApiRequest } from "./util.ts";
 
 class ISteamUser {
   /**
@@ -11,15 +11,10 @@ class ISteamUser {
    */
   static async GetFriendList(
     key: string,
-    steamid: number,
+    steamid: bigint,
     relationship = "friend",
   ) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamid == undefined) {
-      throw new Error("SteamID needs to be given as an parameter.");
-    }
+    CheckValidSteamID(steamid);
     const link =
       `http://api.steampowered.com/ISteamUser/GetFriendList/v1/?key=${key}&steamid=${steamid}&relationship=${relationship}`;
     const response = await SteamWebApiRequest(link);
@@ -34,12 +29,6 @@ class ISteamUser {
    * @param {string} steamids - Comma-delimited list of SteamIDs
    */
   static async GetPlayerBans(key: string, steamids: number) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamids == undefined) {
-      throw new Error("At least a SteamID needs to be given as an parameter.");
-    }
     const link =
       `http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=${key}&steamids=${steamids}`;
     const response = await SteamWebApiRequest(link);
@@ -54,12 +43,6 @@ class ISteamUser {
    * @param {string} teamids - Comma-delimited list of SteamIDs
    */
   static async GetPlayerSummaries(key: string, steamids: number) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamids == undefined) {
-      throw new Error("At least a SteamID needs to be given as an parameter.");
-    }
     const link =
       `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v1/?key=${key}&steamids=${steamids}`;
     const response = await SteamWebApiRequest(link);
@@ -74,12 +57,6 @@ class ISteamUser {
    * @param {string} steamids - Comma-delimited list of SteamIDs (max: 100)
    */
   static async GetPlayerSummaries_2(key: string, steamids: number) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamids == undefined) {
-      throw new Error("At least a SteamID needs to be given as an parameter.");
-    }
     const link =
       `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${key}&steamids=${steamids}`;
     const response = await SteamWebApiRequest(link);
@@ -94,12 +71,7 @@ class ISteamUser {
    * @param {uint64} steamid - SteamID of user
    */
   static async GetUserGroupList(key: string, steamid: bigint) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamid == undefined) {
-      throw new Error("SteamID needs to be given as an parameter.");
-    }
+    CheckValidSteamID(steamid);
     const link =
       `http://api.steampowered.com/ISteamUser/GetUserGroupList/v1/?key=${key}&steamid=${steamid}`;
     const response = await SteamWebApiRequest(link);
@@ -115,12 +87,6 @@ class ISteamUser {
    * @param {int32} url_type - The type of vanity URL. 1 (default): Individual profile, 2: Group, 3: Official game group
    */
   static async ResolveVanityURL(key: string, vanityurl: string, url_type = 1) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (vanityurl == undefined) {
-      throw new Error("Vanityurl needs to be given as an parameter.");
-    }
     const link =
       `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=${key}&vanityurl=${vanityurl}&url_type=${url_type}`;
     const response = await SteamWebApiRequest(link);

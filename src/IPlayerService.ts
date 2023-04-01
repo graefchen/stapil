@@ -1,4 +1,4 @@
-import { SteamWebApiRequest } from "./util.ts";
+import { CheckValidSteamID, SteamWebApiRequest } from "./util.ts";
 
 class IPlayerService {
   /**
@@ -13,12 +13,7 @@ class IPlayerService {
     steamid: bigint,
     appid_playing: number,
   ) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamid == undefined) {
-      throw new Error("SteamID needs to be given as an parameter.");
-    }
+    CheckValidSteamID(steamid);
     const link =
       `http://api.steampowered.com/IPlayerService/IsPlayingSharedGame/v1/?key=${key}&steamid=${steamid}&appid_playing=${appid_playing}`;
     const response = await SteamWebApiRequest(link);
@@ -33,12 +28,7 @@ class IPlayerService {
    * @param {uint32} count - The number of games to return (0/unset: all)
    */
   static async GetRecentlyPlayedGames(key: string, steamid: bigint, count = 0) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamid == undefined) {
-      throw new Error("SteamID needs to be given as an parameter.");
-    }
+    CheckValidSteamID(steamid);
     const link =
       `http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key=${key}&steamid=${steamid}&count=${count}`;
     const response = await SteamWebApiRequest(link);
@@ -61,20 +51,15 @@ class IPlayerService {
   static async GetOwnedGames(
     key: string,
     steamid: bigint,
-    include_appinfo: boolean,
-    include_played_free_games: boolean,
-    appids_filter: number,
-    include_free_sub: boolean,
-    skip_unvetted_apps: boolean,
-    language: string,
-    include_extended_appinfo: boolean,
+    include_appinfo = false,
+    include_played_free_games = false,
+    appids_filter = 0,
+    include_free_sub = false,
+    skip_unvetted_apps = false,
+    language = "en",
+    include_extended_appinfo = false,
   ) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamid == undefined) {
-      throw new Error("SteamID needs to be given as an parameter.");
-    }
+    CheckValidSteamID(steamid);
     const link =
       `http://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${key}&steamid=${steamid}&include_appinfo=${include_appinfo}&include_played_free_games=${include_played_free_games}&appids_filter=${appids_filter}&include_free_sub=${include_free_sub}&skip_unvetted_apps=${skip_unvetted_apps}&language=${language}&include_extended_appinfo=${include_extended_appinfo}`;
     const response = await SteamWebApiRequest(link);
@@ -88,12 +73,7 @@ class IPlayerService {
    * @param {uint64} steamid - The player we're asking about
    */
   static async GetSteamLevel(key: string, steamid: bigint) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamid == undefined) {
-      throw new Error("SteamID needs to be given as an parameter.");
-    }
+    CheckValidSteamID(steamid);
     const link =
       `http://api.steampowered.com/IPlayerService/GetSteamLevel/v1/?key=${key}&steamid=${steamid}`;
     const response = await SteamWebApiRequest(link);
@@ -107,12 +87,7 @@ class IPlayerService {
    * @param {uint64} steamid - The player we're asking about
    */
   static async GetBadges(key: string, steamid: bigint) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamid == undefined) {
-      throw new Error("SteamID needs to be given as an parameter.");
-    }
+    CheckValidSteamID(steamid);
     const link =
       `http://api.steampowered.com/IPlayerService/GetBadges/v1/?key=${key}&steamid=${steamid}`;
     const response = await SteamWebApiRequest(link);
@@ -131,12 +106,7 @@ class IPlayerService {
     steamid: bigint,
     badgeid = 0,
   ) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (steamid == undefined) {
-      throw new Error("SteamID needs to be given as an parameter.");
-    }
+    CheckValidSteamID(steamid);
     const link =
       `http://api.steampowered.com/IPlayerService/GetCommunityBadgeProgress/v1/?key=${key}&steamid=${steamid}&badgeid=${badgeid}`;
     const response = await SteamWebApiRequest(link);

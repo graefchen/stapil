@@ -19,12 +19,6 @@ class ISteamEconomy {
     classid = [],
     instanceid = [],
   ) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (appid == undefined) {
-      throw new Error("AppID needs to be given as an parameter.");
-    }
     if (class_count < 1) throw new Error("Class_count needs to be at least 1");
     if (!Array.isArray(classid)) {
       throw new Error("ClassID needs to be an array.");
@@ -58,12 +52,6 @@ class ISteamEconomy {
     currency = "",
     language = "en",
   ) {
-    if (key == undefined) {
-      throw new Error("Key needs to be given as an parameter.");
-    }
-    if (appid == undefined) {
-      throw new Error("AppID needs to be given as an parameter.");
-    }
     const link =
       `http://api.steampowered.com/ISteamEconomy/GetAssetPrices/v1/?key=${key}&appid=${appid}&currency=${currency}&language=${language}`;
     const response = await SteamWebApiRequest(link);
