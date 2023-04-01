@@ -1,12 +1,12 @@
 import { key, id, vanityurl, appid } from "./secrets.js";
 import { TestSuite } from "./TestSuite.js";
-import { IPlayerService } from "./interfaces/IPlayerService.js";
-import { ISteamApps } from "./interfaces/ISteamApps.js";
-import { ISteamUser } from "./interfaces/ISteamUser.js"
-import { ISteamWebAPIUtil } from "./interfaces/ISteamWebAPIUtil.js";
-import { ISteamUserStats } from "./interfaces/ISteamUserStats.js";
-import { ISteamNews } from "./interfaces/ISteamNews.js";
-import { ISteamEconomy } from "./interfaces/ISteamEconomy.js";
+import { IPlayerService } from "./library/IPlayerService.ts";
+import { ISteamApps } from "./library/ISteamApps.ts";
+import { ISteamUser } from "./library/ISteamUser.ts";
+import { ISteamWebAPIUtil } from "./library/ISteamWebAPIUtil.ts";
+import { ISteamUserStats } from "./library/ISteamUserStats.ts";
+import { ISteamNews } from "./library/ISteamNews.ts";
+import { ISteamEconomy } from "./library/ISteamEconomy.ts";
 console.log("Running tests.");
 
 
