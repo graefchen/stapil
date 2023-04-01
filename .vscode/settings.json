@@ -1,3 +1,18 @@
 {
-	"deno.enable": true
+  "deno.enable": true,
+
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+	"editor.autoIndent": "none",
+    "diffEditor.ignoreTrimWhitespace": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "none",
+    "diffEditor.ignoreTrimWhitespace": false
+  }
 }
