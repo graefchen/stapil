@@ -40,20 +40,6 @@ class ISteamApps {
 
 	/**
 	 * @async
-	 * @function GetSDRConfig - Version 2 - HTTP-Methode GET
-	 * @param {uint32} appid - AppID of game
-	 */
-	static async GetSDRConfig_2(appid: number)
-	{
-		if (appid == undefined) throw new Error("Appid needs to be given as an parameter.");
-		const link = `http://api.steampowered.com/ISteamApps/GetSDRConfig/v2/?appid=${appid}`;
-		const res = await fetch(link);
-		const data = await res.json();
-		return data.response != undefined ? data.response : data;
-	}
-
-	/**
-	 * @async
 	 * @function GetSDRConfigLegacy - Version 1 - HTTP-Methode GET
 	 * @param {uint32} appid - AppID of game
 	 */
