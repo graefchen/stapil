@@ -28,7 +28,7 @@ class ISteamUser {
    * @param {string} key - access key
    * @param {string} steamids - Comma-delimited list of SteamIDs
    */
-  static async GetPlayerBans(key: string, steamids: number) {
+  static async GetPlayerBans(key: string, steamids: string) {
     const link =
       `http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=${key}&steamids=${steamids}`;
     const response = await SteamWebApiRequest(link);
@@ -40,7 +40,7 @@ class ISteamUser {
    * @async
    * @function GetPlayerSummaries - Version 1 - HTTP-Methode GET
    * @param {string} key - access key
-   * @param {string} teamids - Comma-delimited list of SteamIDs
+   * @param {string} steamids - Comma-delimited list of SteamIDs
    */
   static async GetPlayerSummaries(key: string, steamids: number) {
     const link =

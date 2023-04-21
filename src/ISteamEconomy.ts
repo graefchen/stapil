@@ -16,8 +16,8 @@ class ISteamEconomy {
     appid: number,
     language = "en",
     class_count = 1,
-    classid = [],
-    instanceid = [],
+    classid: number[] = [],
+    instanceid: number[] = [],
   ) {
     if (class_count < 1) throw new Error("Class_count needs to be at least 1");
     if (!Array.isArray(classid)) {
