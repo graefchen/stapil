@@ -11,10 +11,13 @@ class ISteamUser {
    */
   static async GetFriendList(
     key: string,
-    steamid: bigint,
+    steamid: number,
     relationship = "friend",
   ) {
-    CheckValidSteamID(steamid);
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/ISteamUser/GetFriendList/v1/?key=${key}&steamid=${steamid}&relationship=${relationship}`;
     const response = await SteamWebApiRequest(link);
@@ -70,8 +73,11 @@ class ISteamUser {
    * @param {string} key - access key
    * @param {uint64} steamid - SteamID of user
    */
-  static async GetUserGroupList(key: string, steamid: bigint) {
-    CheckValidSteamID(steamid);
+  static async GetUserGroupList(key: string, steamid: number) {
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/ISteamUser/GetUserGroupList/v1/?key=${key}&steamid=${steamid}`;
     const response = await SteamWebApiRequest(link);

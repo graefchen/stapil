@@ -1,5 +1,5 @@
 // imports
-// import { assertEquals } from "https://deno.land/std@0.182.0/testing/asserts.ts";
+import { assertIsError } from "https://deno.land/std@0.200.0/assert/mod.ts";
 
 import {
   IPlayerService,
@@ -78,3 +78,8 @@ Deno.test(async function IsWorkingISteamWebAPIUtil() {
   await ISteamWebAPIUtil.GetServerInfo();
   await ISteamWebAPIUtil.GetSupportedAPIList(key);
 });
+
+Deno.test(async function ErrorTest() {
+  assertIsError(await IPlayerService.GetOwnedGames(key, 0), Error, "The given 'SteamID' is not a valid 'SteamID'");
+  assertIsError(await IPlayerService.GetOwnedGames("Hello_World!", id), Error, "Access is denied. Please verify your 'key' parameter.");
+})

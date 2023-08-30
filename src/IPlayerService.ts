@@ -10,10 +10,13 @@ class IPlayerService {
    */
   static async IsPlayingSharedGame(
     key: string,
-    steamid: bigint,
+    steamid: number,
     appid_playing: number,
   ) {
-    CheckValidSteamID(steamid);
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/IPlayerService/IsPlayingSharedGame/v1/?key=${key}&steamid=${steamid}&appid_playing=${appid_playing}`;
     const response = await SteamWebApiRequest(link);
@@ -27,8 +30,11 @@ class IPlayerService {
    * @param {uint64} steamid - The player we're asking about
    * @param {uint32} count - The number of games to return (0/unset: all)
    */
-  static async GetRecentlyPlayedGames(key: string, steamid: bigint, count = 0) {
-    CheckValidSteamID(steamid);
+  static async GetRecentlyPlayedGames(key: string, steamid: number, count = 0) {
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key=${key}&steamid=${steamid}&count=${count}`;
     const response = await SteamWebApiRequest(link);
@@ -50,7 +56,7 @@ class IPlayerService {
    */
   static async GetOwnedGames(
     key: string,
-    steamid: bigint,
+    steamid: number,
     include_appinfo = false,
     include_played_free_games = false,
     appids_filter = 0,
@@ -59,7 +65,10 @@ class IPlayerService {
     language = "en",
     include_extended_appinfo = false,
   ) {
-    CheckValidSteamID(steamid);
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${key}&steamid=${steamid}&include_appinfo=${include_appinfo}&include_played_free_games=${include_played_free_games}&appids_filter=${appids_filter}&include_free_sub=${include_free_sub}&skip_unvetted_apps=${skip_unvetted_apps}&language=${language}&include_extended_appinfo=${include_extended_appinfo}`;
     const response = await SteamWebApiRequest(link);
@@ -72,8 +81,11 @@ class IPlayerService {
    * @param {string} key - Access key
    * @param {uint64} steamid - The player we're asking about
    */
-  static async GetSteamLevel(key: string, steamid: bigint) {
-    CheckValidSteamID(steamid);
+  static async GetSteamLevel(key: string, steamid: number) {
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/IPlayerService/GetSteamLevel/v1/?key=${key}&steamid=${steamid}`;
     const response = await SteamWebApiRequest(link);
@@ -86,8 +98,11 @@ class IPlayerService {
    * @param {string} key - Access key
    * @param {uint64} steamid - The player we're asking about
    */
-  static async GetBadges(key: string, steamid: bigint) {
-    CheckValidSteamID(steamid);
+  static async GetBadges(key: string, steamid: number) {
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/IPlayerService/GetBadges/v1/?key=${key}&steamid=${steamid}`;
     const response = await SteamWebApiRequest(link);
@@ -103,10 +118,13 @@ class IPlayerService {
    */
   static async GetCommunityBadgeProgress(
     key: string,
-    steamid: bigint,
+    steamid: number,
     badgeid = 0,
   ) {
-    CheckValidSteamID(steamid);
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/IPlayerService/GetCommunityBadgeProgress/v1/?key=${key}&steamid=${steamid}&badgeid=${badgeid}`;
     const response = await SteamWebApiRequest(link);

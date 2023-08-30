@@ -31,7 +31,7 @@ export async function SteamWebApiRequest(link: string) {
  * @param id 
  * @returns 
  */
-export function CheckValidSteamID(id: bigint) {
+export function CheckValidSteamID(id: number) {
   if (id.toString().length != 17) {
     return new Error("The given 'SteamID' is not a valid 'SteamID'");
   }

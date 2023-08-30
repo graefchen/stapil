@@ -47,11 +47,14 @@ class ISteamUserStats {
    */
   static async GetPlayerAchievements(
     key: string,
-    steamid: bigint,
+    steamid: number,
     appid: number,
     l = "en",
   ) {
-    CheckValidSteamID(steamid);
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=${key}&steamid=${steamid}&appid=${appid}&l=${l}`;
     const response = await SteamWebApiRequest(link);
@@ -95,10 +98,13 @@ class ISteamUserStats {
    */
   static async GetUserStatsForGame(
     key: string,
-    steamid: bigint,
+    steamid: number,
     appid: number,
   ) {
-    CheckValidSteamID(steamid);
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v1/?key=${key}&steamid=${steamid}&appid=${appid}`;
     const response = await SteamWebApiRequest(link);
@@ -114,10 +120,13 @@ class ISteamUserStats {
    */
   static async GetUserStatsForGame_2(
     key: string,
-    steamid: bigint,
+    steamid: number,
     appid: number,
   ) {
-    CheckValidSteamID(steamid);
+    const isValid = CheckValidSteamID(steamid);
+    if (isValid) {
+      return isValid;
+    }
     const link =
       `http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v2/?key=${key}&steamid=${steamid}&appid=${appid}`;
     const response = await SteamWebApiRequest(link);
