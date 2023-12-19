@@ -21,10 +21,17 @@ const stapil = new Stapil(key);
 // console.log(await stapil.ISteamNews.GetNewsForApp(appid));
 
 // Testing for User.ts
-console.log(await stapil.ISteamUser.GetFriendList(id));
-console.log(await stapil.ISteamUser.GetPlayerSummaries(`${id}`));
-console.log(await stapil.ISteamUser.GetUserGroupList(id));
-console.log(await stapil.ISteamUser.ResolveVanityURL(vanityurl));
+// console.log(await stapil.ISteamUser.GetFriendList(id));
+// console.log(await stapil.ISteamUser.GetPlayerSummaries(`${id}`));
+// console.log(await stapil.ISteamUser.GetUserGroupList(id));
+// console.log(await stapil.ISteamUser.ResolveVanityURL(vanityurl));
+
+// Testing for UserStats.ts
+// console.log(await stapil.ISteamUserStats.GetGlobalAchievementPercentagesForApp(appid));
+// console.log(await stapil.ISteamUserStats.GetNumberOfCurrentPlayers(appid));
+// console.log(await stapil.ISteamUserStats.GetPlayerAchievements(id, appid))
+// console.log(await stapil.ISteamUserStats.GetSchemaForGame(appid));
+// console.log(await stapil.ISteamUserStats.GetUserStatsForGame(id, appid))
 
 // const apiListData = await stapil.ISteamWebAPIUtil.GetSupportedAPIList(false);
 // const list = apiListData.apilist.interfaces.filter(element => {
