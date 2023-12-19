@@ -56,7 +56,7 @@ export class User extends Base {
   public GetFriendList(
     steamid: string,
     relationship = "friend",
-  ) : Promise<friendlist | Error> {
+  ) : Promise<friendlist> {
     return super.request(
       `${super.link}GetFriendList/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&relationship=${relationship}`,
     );
@@ -69,19 +69,19 @@ export class User extends Base {
   //   );
   // }
 
-  public GetPlayerSummaries(steamids: string) : Promise<playersummeries | Error> {
+  public GetPlayerSummaries(steamids: string) : Promise<playersummeries> {
     return super.request(
       `${super.link}GetPlayerSummaries/v2/?key=${super.key}&steamids=${steamids}`,
     );
   }
 
-  public GetUserGroupList(steamid: string) : Promise<groupelist | Error> {
+  public GetUserGroupList(steamid: string) : Promise<groupelist> {
     return super.request(
       `${super.link}GetUserGroupList/v1/?key=${super.key}&steamid=${new SteamID(steamid)}`,
     );
   }
 
-  public ResolveVanityURL(vanityurl: string, url_type = 1) : Promise<vanityurl | Error> {
+  public ResolveVanityURL(vanityurl: string, url_type = 1) : Promise<vanityurl> {
     return super.request(
       `${super.link}ResolveVanityURL/v1/?key=${super.key}&vanityurl=${vanityurl}&url_type=${url_type}`,
     );

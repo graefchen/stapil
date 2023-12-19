@@ -32,7 +32,7 @@ export class News extends Base {
     count = 20,
     feeds = "",
     tags = "",
-  ) : Promise<appnews | Error> {
+  ) : Promise<appnews> {
     return super.request(
       `${super.link}GetNewsForApp/v2/?appid=${appid}&maxlength=${maxlength}&enddate=${enddate}&count=${count}&feeds=${feeds}&tags=${tags}`,
     );
