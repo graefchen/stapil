@@ -24,12 +24,12 @@ export class UserStats extends Base {
   }
 
   public GetPlayerAchievements(
-    steamid: SteamID,
+    steamid: string,
     appid: number,
     language = "en",
   ) {
     return super.request(
-      `${super.link}GetPlayerAchievements/v1/?key=${super.key}&steamid=${steamid.id}&appid=${appid}&l=${language}`,
+      `${super.link}GetPlayerAchievements/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&appid=${appid}&l=${language}`,
     );
   }
 
@@ -46,20 +46,20 @@ export class UserStats extends Base {
   }
 
   public GetUserStatsForGame(
-    steamid: SteamID,
+    steamid: string,
     appid: number,
   ) {
     return super.request(
-      `${super.link}GetUserStatsForGame/v1/?key=${super.key}&steamid=${steamid.id}&appid=${appid}`,
+      `${super.link}GetUserStatsForGame/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&appid=${appid}`,
     );
   }
 
   public GetUserStatsForGameV2(
-    steamid: SteamID,
+    steamid: string,
     appid: number,
   ) {
     return super.request(
-      `${super.link}GetUserStatsForGame/v2/?key=${super.key}&steamid=${steamid.id}&appid=${appid}`,
+      `${super.link}GetUserStatsForGame/v2/?key=${super.key}&steamid=${new SteamID(steamid)}&appid=${appid}`,
     );
   }
 }

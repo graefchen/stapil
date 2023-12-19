@@ -13,9 +13,6 @@ export class Stapil {
   public ISteamUserStats: UserStats;
   public ISteamWebAPIUtil: Utils;
 
-  /**
-   * @param key
-   */
   constructor(key: string) {
     this.IPlayerService = new Player(key);
     this.ISteamApps = new App(key);

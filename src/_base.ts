@@ -9,8 +9,12 @@ export class SteamID {
     }
   }
 
-  public get id(): string {
+  public get id() : string {
     return this.#id;
+  }
+
+  toString() : string {
+    return `${this.id}`;
   }
 }
 

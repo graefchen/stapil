@@ -7,25 +7,25 @@ export class Player extends Base {
   }
 
   public IsPlayingSharedGame(
-    steamid: SteamID,
+    steamid: string,
     appid_playing: number,
   ) {
     return super.request(
-      `${super.link}IsPlayingSharedGame/v1/?key=${super.key}&steamid=${steamid.id}&appid_playing=${appid_playing}`,
+      `${super.link}IsPlayingSharedGame/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&appid_playing=${appid_playing}`,
     );
   }
 
   public GetRecentlyPlayedGames(
-    steamid: SteamID,
+    steamid: string,
     count = 0,
   ) {
     return super.request(
-      `${super.link}GetRecentlyPlayedGames/v1/?key=${super.key}&steamid=${steamid.id}&count=${count}`,
+      `${super.link}GetRecentlyPlayedGames/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&count=${count}`,
     );
   }
 
   public GetOwnedGames(
-    steamid: SteamID,
+    steamid: string,
     include_appinfo = false,
     include_played_free_games = false,
     appids_filter = 0,
@@ -35,28 +35,28 @@ export class Player extends Base {
     include_extended_appinfo = false,
   ) {
     return super.request(
-      `${super.link}GetOwnedGames/v1/?key=${super.key}&steamid=${steamid.id}&include_appinfo=${include_appinfo}&include_played_free_games=${include_played_free_games}&appids_filter=${appids_filter}&include_free_sub=${include_free_sub}&skip_unvetted_apps=${skip_unvetted_apps}&language=${language}&include_extended_appinfo=${include_extended_appinfo}`,
+      `${super.link}GetOwnedGames/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&include_appinfo=${include_appinfo}&include_played_free_games=${include_played_free_games}&appids_filter=${appids_filter}&include_free_sub=${include_free_sub}&skip_unvetted_apps=${skip_unvetted_apps}&language=${language}&include_extended_appinfo=${include_extended_appinfo}`,
     );
   }
 
-  public GetSteamLevel(steamid: SteamID) {
+  public GetSteamLevel(steamid: string) {
     return super.request(
-      `${super.link}GetSteamLevel/v1/?key=${super.key}&steamid=${steamid.id}`,
+      `${super.link}GetSteamLevel/v1/?key=${super.key}&steamid=${new SteamID(steamid)}`,
     );
   }
 
-  public GetBadges(steamid: SteamID) {
+  public GetBadges(steamid: string) {
     return super.request(
-      `${super.link}GetBadges/v1/?key=${super.key}&steamid=${steamid.id}`,
+      `${super.link}GetBadges/v1/?key=${super.key}&steamid=${new SteamID(steamid)}`,
     );
   }
 
   public GetCommunityBadgeProgress(
-    steamid: SteamID,
+    steamid: string,
     badgeid = 0,
   ) {
     return super.request(
-      `${super.link}GetCommunityBadgeProgress/v1/?key=${super.key}&steamid=${steamid.id}&badgeid=${badgeid}`,
+      `${super.link}GetCommunityBadgeProgress/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&badgeid=${badgeid}`,
     );
   }
 }
