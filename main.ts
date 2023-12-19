@@ -33,6 +33,14 @@ const stapil = new Stapil(key);
 // console.log(await stapil.ISteamUserStats.GetSchemaForGame(appid));
 // console.log(await stapil.ISteamUserStats.GetUserStatsForGame(id, appid))
 
+// Testing for Player.ts
+// console.log(await stapil.IPlayerService.IsPlayingSharedGame(id, appid));
+// console.log(await stapil.IPlayerService.GetRecentlyPlayedGames(id));
+// console.log(await stapil.IPlayerService.GetOwnedGames(id, true, true));
+// console.log(await stapil.IPlayerService.GetSteamLevel(id));
+// console.log(await stapil.IPlayerService.GetBadges(id));
+// console.log(await stapil.IPlayerService.GetCommunityBadgeProgress(id));
+
 // const apiListData = await stapil.ISteamWebAPIUtil.GetSupportedAPIList(false);
 // const list = apiListData.apilist.interfaces.filter(element => {
 //   // Just check if any name has a number in it
