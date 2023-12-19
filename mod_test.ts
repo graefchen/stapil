@@ -1,6 +1,3 @@
-// imports
-import { assertIsError } from "https://deno.land/std@0.200.0/assert/mod.ts";
-
 import { Stapil} from "./mod.ts";
 
 // test for one function
