@@ -25,18 +25,18 @@ interface ownedgame {
   name?: string;
   playtime_forever: number;
   img_icon_url?: string;
-  has_community_visible_stats: boolean,
+  has_community_visible_stats: boolean;
   playtime_windows_forever: number;
   playtime_mac_forever: number;
   playtime_linux_forever: number;
   rtime_last_played: number;
-  content_descriptorids: number[],
+  content_descriptorids: number[];
   playtime_disconnected: number;
 }
 
 interface ownedgames {
   game_count: number;
-  game: ownedgame[]
+  game: ownedgame[];
 }
 
 interface badge {
@@ -58,7 +58,7 @@ interface badges {
   player_xp_needed_current_level: number;
 }
 
-interface quest{
+interface quest {
   questid: number;
   completed: boolean;
 }
@@ -79,16 +79,20 @@ export class Player extends Base {
     appid_playing: number,
   ) {
     return super.request(
-      `${super.link}IsPlayingSharedGame/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&appid_playing=${appid_playing}`,
+      `${super.link}IsPlayingSharedGame/v1/?key=${super.key}&steamid=${new SteamID(
+        steamid,
+      )}&appid_playing=${appid_playing}`,
     );
   }
 
   public GetRecentlyPlayedGames(
     steamid: string,
     count = 0,
-  ) : Promise<recentlyplayedgames> {
+  ): Promise<recentlyplayedgames> {
     return super.request(
-      `${super.link}GetRecentlyPlayedGames/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&count=${count}`,
+      `${super.link}GetRecentlyPlayedGames/v1/?key=${super.key}&steamid=${new SteamID(
+        steamid,
+      )}&count=${count}`,
     );
   }
 
@@ -101,30 +105,38 @@ export class Player extends Base {
     skip_unvetted_apps = false,
     language = "en",
     include_extended_appinfo = false,
-  ) : Promise<ownedgames> {
+  ): Promise<ownedgames> {
     return super.request(
-      `${super.link}GetOwnedGames/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&include_appinfo=${include_appinfo}&include_played_free_games=${include_played_free_games}&appids_filter=${appids_filter}&include_free_sub=${include_free_sub}&skip_unvetted_apps=${skip_unvetted_apps}&language=${language}&include_extended_appinfo=${include_extended_appinfo}`,
+      `${super.link}GetOwnedGames/v1/?key=${super.key}&steamid=${new SteamID(
+        steamid,
+      )}&include_appinfo=${include_appinfo}&include_played_free_games=${include_played_free_games}&appids_filter=${appids_filter}&include_free_sub=${include_free_sub}&skip_unvetted_apps=${skip_unvetted_apps}&language=${language}&include_extended_appinfo=${include_extended_appinfo}`,
     );
   }
 
-  public GetSteamLevel(steamid: string) : Promise<steamlevel> {
+  public GetSteamLevel(steamid: string): Promise<steamlevel> {
     return super.request(
-      `${super.link}GetSteamLevel/v1/?key=${super.key}&steamid=${new SteamID(steamid)}`,
+      `${super.link}GetSteamLevel/v1/?key=${super.key}&steamid=${new SteamID(
+        steamid,
+      )}`,
     );
   }
 
-  public GetBadges(steamid: string) : Promise<badges> {
+  public GetBadges(steamid: string): Promise<badges> {
     return super.request(
-      `${super.link}GetBadges/v1/?key=${super.key}&steamid=${new SteamID(steamid)}`,
+      `${super.link}GetBadges/v1/?key=${super.key}&steamid=${new SteamID(
+        steamid,
+      )}`,
     );
   }
 
   public GetCommunityBadgeProgress(
     steamid: string,
     badgeid = 0,
-  ) : Promise<badgesprogress>{
+  ): Promise<badgesprogress> {
     return super.request(
-      `${super.link}GetCommunityBadgeProgress/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&badgeid=${badgeid}`,
+      `${super.link}GetCommunityBadgeProgress/v1/?key=${super.key}&steamid=${new SteamID(
+        steamid,
+      )}&badgeid=${badgeid}`,
     );
   }
 }

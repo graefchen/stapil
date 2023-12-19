@@ -16,7 +16,7 @@ interface newsitems {
 
 interface appnews {
   appid: number;
-  newsitems: newsitems[]
+  newsitems: newsitems[];
   count: number;
 }
 
@@ -32,7 +32,7 @@ export class News extends Base {
     count = 20,
     feeds = "",
     tags = "",
-  ) : Promise<appnews> {
+  ): Promise<appnews> {
     return super.request(
       `${super.link}GetNewsForApp/v2/?appid=${appid}&maxlength=${maxlength}&enddate=${enddate}&count=${count}&feeds=${feeds}&tags=${tags}`,
     );

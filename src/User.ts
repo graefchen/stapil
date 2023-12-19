@@ -12,21 +12,21 @@ interface friendlist {
 
 interface playersummerie {
   steamid: string;
-  communityvisibilitystate: number,
-  profilestate: number,
-  personaname: string,
-  commentpermission: number,
-  profileurl: string,
-  avatar: string,
-  avatarmedium: string,
-  avatarfull: string,
-  avatarhash: string,
-  lastlogoff: number,
-  personastate: 1,
-  realname: string,
-  primaryclanid: string,
-  timecreated: number,
-  personastateflags: number,
+  communityvisibilitystate: number;
+  profilestate: number;
+  personaname: string;
+  commentpermission: number;
+  profileurl: string;
+  avatar: string;
+  avatarmedium: string;
+  avatarfull: string;
+  avatarhash: string;
+  lastlogoff: number;
+  personastate: 1;
+  realname: string;
+  primaryclanid: string;
+  timecreated: number;
+  personastateflags: number;
   loccountrycode: string;
 }
 
@@ -56,9 +56,11 @@ export class User extends Base {
   public GetFriendList(
     steamid: string,
     relationship = "friend",
-  ) : Promise<friendlist> {
+  ): Promise<friendlist> {
     return super.request(
-      `${super.link}GetFriendList/v1/?key=${super.key}&steamid=${new SteamID(steamid)}&relationship=${relationship}`,
+      `${super.link}GetFriendList/v1/?key=${super.key}&steamid=${new SteamID(
+        steamid,
+      )}&relationship=${relationship}`,
     );
   }
 
@@ -69,19 +71,21 @@ export class User extends Base {
   //   );
   // }
 
-  public GetPlayerSummaries(steamids: string) : Promise<playersummeries> {
+  public GetPlayerSummaries(steamids: string): Promise<playersummeries> {
     return super.request(
       `${super.link}GetPlayerSummaries/v2/?key=${super.key}&steamids=${steamids}`,
     );
   }
 
-  public GetUserGroupList(steamid: string) : Promise<groupelist> {
+  public GetUserGroupList(steamid: string): Promise<groupelist> {
     return super.request(
-      `${super.link}GetUserGroupList/v1/?key=${super.key}&steamid=${new SteamID(steamid)}`,
+      `${super.link}GetUserGroupList/v1/?key=${super.key}&steamid=${new SteamID(
+        steamid,
+      )}`,
     );
   }
 
-  public ResolveVanityURL(vanityurl: string, url_type = 1) : Promise<vanityurl> {
+  public ResolveVanityURL(vanityurl: string, url_type = 1): Promise<vanityurl> {
     return super.request(
       `${super.link}ResolveVanityURL/v1/?key=${super.key}&vanityurl=${vanityurl}&url_type=${url_type}`,
     );

@@ -1,9 +1,4 @@
-import { Stapil} from "./mod.ts";
-
-// test for one function
-// Deno.test(function *functionname*(){
-//	*things to test*
-// });
+import { Stapil } from "./mod.ts";
 
 // Getting all the important info
 const key =
@@ -28,8 +23,6 @@ Deno.test(async function IsWorkingIPlayerService() {
 
 Deno.test(async function IsWorkingISteamApps() {
   await stapil.ISteamApps.GetAppList();
-  // await stapil.ISteamApps.GetSDRConfig(appid);
-  // await stapil.ISteamApps.GetServersAtAddress("155.133.248.36");
 });
 
 Deno.test(async function IsWorkingISteamNews() {
@@ -38,7 +31,6 @@ Deno.test(async function IsWorkingISteamNews() {
 
 Deno.test(async function IsWorkingISteamUser() {
   await stapil.ISteamUser.GetFriendList(id);
-  // await stapil.ISteamUser.GetPlayerBans(id);
   await stapil.ISteamUser.GetPlayerSummaries(id);
   await stapil.ISteamUser.GetUserGroupList(id);
   await stapil.ISteamUser.ResolveVanityURL(vanityurl);

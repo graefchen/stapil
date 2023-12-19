@@ -87,7 +87,7 @@ export class UserStats extends Base {
     );
   }
 
-  public GetSchemaForGame(appid: number, language = "en") : Promise<gameschema> {
+  public GetSchemaForGame(appid: number, language = "en"): Promise<gameschema> {
     return super.request(
       `${super.link}GetSchemaForGame/v2/?key=${super.key}&appid=${appid}&l=${language}`,
     );
@@ -96,7 +96,7 @@ export class UserStats extends Base {
   public GetUserStatsForGame(
     steamid: string,
     appid: number,
-  ) : Promise <playerstats>{
+  ): Promise<playerstats> {
     return super.request(
       `${super.link}GetUserStatsForGame/v2/?key=${super.key}&steamid=${new SteamID(
         steamid,
