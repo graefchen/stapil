@@ -618,7 +618,7 @@
                         "name": "encrypted_loginkey",
                         "type": "rawbinary",
                         "optional": false,
-                        "description": "Should be the users hashed loginkey, AES encrypted with the sessionkey."
+                        "description": "Should be the users hashed loginAES encrypted with the sessionkey."
                     }
                 ]
             },

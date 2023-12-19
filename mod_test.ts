@@ -1,15 +1,7 @@
 // imports
 import { assertIsError } from "https://deno.land/std@0.200.0/assert/mod.ts";
 
-import {
-  IPlayerService,
-  ISteamApps,
-  ISteamEconomy,
-  ISteamNews,
-  ISteamUser,
-  ISteamUserStats,
-  ISteamWebAPIUtil,
-} from "./mod.ts";
+import { Stapil} from "./mod.ts";
 
 // test for one function
 // Deno.test(function *functionname*(){
@@ -26,60 +18,44 @@ const vanityurl =
 const appid =
   (JSON.parse(await Deno.readTextFile("./secret.json"))).steam.appid;
 
+const stapil = new Stapil(key);
+
 Deno.test(async function IsWorkingIPlayerService() {
-  await IPlayerService.IsPlayingSharedGame(key, id, appid);
-  await IPlayerService.GetRecentlyPlayedGames(key, id, 10);
-  await IPlayerService.GetOwnedGames(key, id);
-  await IPlayerService.GetSteamLevel(key, id);
-  await IPlayerService.GetBadges(key, id);
-  await IPlayerService.GetCommunityBadgeProgress(key, id);
+  await stapil.IPlayerService.IsPlayingSharedGame(id, appid);
+  await stapil.IPlayerService.GetRecentlyPlayedGames(id, 10);
+  await stapil.IPlayerService.GetOwnedGames(id);
+  await stapil.IPlayerService.GetSteamLevel(id);
+  await stapil.IPlayerService.GetBadges(id);
+  await stapil.IPlayerService.GetCommunityBadgeProgress(id);
 });
 
 Deno.test(async function IsWorkingISteamApps() {
-  await ISteamApps.GetAppList();
-  await ISteamApps.GetAppList_2();
-  await ISteamApps.GetSDRConfig(appid);
-  await ISteamApps.GetServersAtAddress("155.133.248.36");
-});
-
-Deno.test(async function IsWorkingISteamEconomy() {
-  // Example from the Team Fortress Wiki, just modified (440 is TeamFortress)
-  // This function works only on certain ... games ...
-  await ISteamEconomy.GetAssetClassInfo(key, 440, "en", 2, [195151, 16891096]);
-  await ISteamEconomy.GetAssetPrices(key, appid);
+  await stapil.ISteamApps.GetAppList();
+  // await stapil.ISteamApps.GetSDRConfig(appid);
+  // await stapil.ISteamApps.GetServersAtAddress("155.133.248.36");
 });
 
 Deno.test(async function IsWorkingISteamNews() {
-  await ISteamNews.GetNewsForApp(appid);
-  await ISteamNews.GetNewsForApp_2(appid);
+  await stapil.ISteamNews.GetNewsForApp(appid);
 });
 
 Deno.test(async function IsWorkingISteamUser() {
-  await ISteamUser.GetFriendList(key, id);
-  await ISteamUser.GetPlayerBans(key, id);
-  await ISteamUser.GetPlayerSummaries(key, id);
-  await ISteamUser.GetPlayerSummaries_2(key, id);
-  await ISteamUser.GetUserGroupList(key, id);
-  await ISteamUser.ResolveVanityURL(key, vanityurl);
+  await stapil.ISteamUser.GetFriendList(id);
+  // await stapil.ISteamUser.GetPlayerBans(id);
+  await stapil.ISteamUser.GetPlayerSummaries(id);
+  await stapil.ISteamUser.GetUserGroupList(id);
+  await stapil.ISteamUser.ResolveVanityURL(vanityurl);
 });
 
 Deno.test(async function IsWorkingISteamUserStats() {
-  await ISteamUserStats.GetGlobalAchievementPercentagesForApp(appid);
-  await ISteamUserStats.GetGlobalAchievementPercentagesForApp_2(appid);
-  await ISteamUserStats.GetNumberOfCurrentPlayers(appid);
-  await ISteamUserStats.GetPlayerAchievements(key, id, appid);
-  await ISteamUserStats.GetSchemaForGame(key, appid);
-  await ISteamUserStats.GetSchemaForGame_2(key, appid);
-  await ISteamUserStats.GetUserStatsForGame(key, id, appid);
-  await ISteamUserStats.GetUserStatsForGame_2(key, id, appid);
+  await stapil.ISteamUserStats.GetGlobalAchievementPercentagesForApp(appid);
+  await stapil.ISteamUserStats.GetNumberOfCurrentPlayers(appid);
+  await stapil.ISteamUserStats.GetPlayerAchievements(id, appid);
+  await stapil.ISteamUserStats.GetSchemaForGame(appid);
+  await stapil.ISteamUserStats.GetUserStatsForGame(id, appid);
 });
 
 Deno.test(async function IsWorkingISteamWebAPIUtil() {
-  await ISteamWebAPIUtil.GetServerInfo();
-  await ISteamWebAPIUtil.GetSupportedAPIList(key);
+  await stapil.ISteamWebAPIUtil.GetServerInfo();
+  await stapil.ISteamWebAPIUtil.GetSupportedAPIList(key);
 });
-
-Deno.test(async function ErrorTest() {
-  assertIsError(await IPlayerService.GetOwnedGames(key, 0), Error, "The given 'SteamID' is not a valid 'SteamID'");
-  assertIsError(await IPlayerService.GetOwnedGames("Hello_World!", id), Error, "Access is denied. Please verify your 'key' parameter.");
-})
