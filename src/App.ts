@@ -13,21 +13,12 @@ interface applist {
   apps: apps;
 }
 
-interface uptodate {
-  success: boolean;
-  up_to_date?: boolean;
-  version_is_listable?: boolean;
-  required_version?: number;
-  message?: string;
-  error?: string;
-}
-
 export class App extends Base {
   constructor(key: string) {
     super(key, "http://api.steampowered.com/ISteamApps/");
   }
 
-  public GetAppList(): Promise<applist> {
+  public GetAppList(): Promise<{ applist: applist }> {
     return super.request(`${super.link}GetAppList/v2/`);
   }
 
@@ -45,7 +36,19 @@ export class App extends Base {
   //   return super.request(`${this.link}GetServersAtAddress/v1/?addr=${addr}`);
   // }
 
-  public UpToDateCheck(appid: number, version: number): Promise<uptodate> {
+  public UpToDateCheck(
+    appid: number,
+    version: number,
+  ): Promise<
+    {
+      success: boolean;
+      up_to_date?: boolean;
+      version_is_listable?: boolean;
+      required_version?: number;
+      message?: string;
+      error?: string;
+    }
+  > {
     return super.request(
       `${this.link}UpToDateCheck/v1/?appid=${appid}&version=${version}`,
     );

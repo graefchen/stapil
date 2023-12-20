@@ -10,7 +10,7 @@ interface friendlist {
   friends: friend[];
 }
 
-interface playersummerie {
+interface player {
   steamid: string;
   communityvisibilitystate: number;
   profilestate: number;
@@ -30,22 +30,8 @@ interface playersummerie {
   loccountrycode: string;
 }
 
-interface playersummeries {
-  players: playersummerie[];
-}
-
 interface group {
   gid: string;
-}
-
-interface groupelist {
-  success: boolean;
-  groups: group[];
-}
-
-interface vanityurl {
-  success: number;
-  steamid: string;
 }
 
 export class User extends Base {
@@ -56,7 +42,7 @@ export class User extends Base {
   public GetFriendList(
     steamid: string,
     relationship = "friend",
-  ): Promise<friendlist> {
+  ): Promise<{ friendlist: friendlist }> {
     return super.request(
       `${super.link}GetFriendList/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -71,13 +57,15 @@ export class User extends Base {
   //   );
   // }
 
-  public GetPlayerSummaries(steamids: string): Promise<playersummeries> {
+  public GetPlayerSummaries(steamids: string): Promise<{ players: player[] }> {
     return super.request(
       `${super.link}GetPlayerSummaries/v2/?key=${super.key}&steamids=${steamids}`,
     );
   }
 
-  public GetUserGroupList(steamid: string): Promise<groupelist> {
+  public GetUserGroupList(
+    steamid: string,
+  ): Promise<{ success: boolean; groups: group[] }> {
     return super.request(
       `${super.link}GetUserGroupList/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -85,7 +73,10 @@ export class User extends Base {
     );
   }
 
-  public ResolveVanityURL(vanityurl: string, url_type = 1): Promise<vanityurl> {
+  public ResolveVanityURL(
+    vanityurl: string,
+    url_type = 1,
+  ): Promise<{ success: number; steamid: string }> {
     return super.request(
       `${super.link}ResolveVanityURL/v1/?key=${super.key}&vanityurl=${vanityurl}&url_type=${url_type}`,
     );

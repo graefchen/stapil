@@ -13,6 +13,7 @@ const appid =
 const stapil = new Stapil(key);
 
 // Testing for Apps.ts
+console.log(await stapil.ISteamApps.GetAppList());
 // console.log(await stapil.ISteamApps.UpToDateCheck(346110, 1));
 // console.log(await stapil.ISteamApps.UpToDateCheck(346110, 1000));
 // console.log(await stapil.ISteamApps.UpToDateCheck(appid, 1));
@@ -34,9 +35,8 @@ const stapil = new Stapil(key);
 // console.log(await stapil.ISteamUserStats.GetUserStatsForGame(id, appid))
 
 // Testing for Player.ts
-// console.log(await stapil.IPlayerService.IsPlayingSharedGame(id, appid));
 // console.log(await stapil.IPlayerService.GetRecentlyPlayedGames(id));
-// console.log(await stapil.IPlayerService.GetOwnedGames(id, true, true));
+// console.log((await stapil.IPlayerService.GetOwnedGames(id)).games.at(100));
 // console.log(await stapil.IPlayerService.GetSteamLevel(id));
 // console.log(await stapil.IPlayerService.GetBadges(id));
 // console.log(await stapil.IPlayerService.GetCommunityBadgeProgress(id));

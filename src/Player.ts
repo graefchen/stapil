@@ -11,15 +11,6 @@ interface game {
   playtime_linux_forever: number;
 }
 
-interface recentlyplayedgames {
-  total_count: number;
-  games: game[];
-}
-
-interface steamlevel {
-  player_level: number;
-}
-
 interface ownedgame {
   appid: number;
   name?: string;
@@ -32,11 +23,6 @@ interface ownedgame {
   rtime_last_played: number;
   content_descriptorids: number[];
   playtime_disconnected: number;
-}
-
-interface ownedgames {
-  game_count: number;
-  game: ownedgame[];
 }
 
 interface badge {
@@ -63,32 +49,28 @@ interface quest {
   completed: boolean;
 }
 
-interface badgesprogress {
-  quests: quest[];
-}
-
 export class Player extends Base {
   /** */
   constructor(key: string) {
     super(key, "http://api.steampowered.com/IPlayerService/");
   }
 
-  // TODO: Find out which type it returnes
-  public IsPlayingSharedGame(
-    steamid: string,
-    appid_playing: number,
-  ) {
-    return super.request(
-      `${super.link}IsPlayingSharedGame/v1/?key=${super.key}&steamid=${new SteamID(
-        steamid,
-      )}&appid_playing=${appid_playing}`,
-    );
-  }
+  // TODO: Find out which type it returns and if we should uncomment it
+  // public IsPlayingSharedGame(
+  //   steamid: string,
+  //   appid_playing: number,
+  // ) {
+  //   return super.request(
+  //     `${super.link}IsPlayingSharedGame/v1/?key=${super.key}&steamid=${new SteamID(
+  //       steamid,
+  //     )}&appid_playing=${appid_playing}`,
+  //   );
+  // }
 
   public GetRecentlyPlayedGames(
     steamid: string,
     count = 0,
-  ): Promise<recentlyplayedgames> {
+  ): Promise<{ total_count: number; games: ownedgame[] }> {
     return super.request(
       `${super.link}GetRecentlyPlayedGames/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -105,7 +87,7 @@ export class Player extends Base {
     skip_unvetted_apps = false,
     language = "en",
     include_extended_appinfo = false,
-  ): Promise<ownedgames> {
+  ): Promise<{ game_count: number; games: ownedgame[] }> {
     return super.request(
       `${super.link}GetOwnedGames/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -113,7 +95,7 @@ export class Player extends Base {
     );
   }
 
-  public GetSteamLevel(steamid: string): Promise<steamlevel> {
+  public GetSteamLevel(steamid: string): Promise<{ player_level: number }> {
     return super.request(
       `${super.link}GetSteamLevel/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -121,7 +103,7 @@ export class Player extends Base {
     );
   }
 
-  public GetBadges(steamid: string): Promise<badges> {
+  public GetBadges(steamid: string): Promise<{ badges: badges }> {
     return super.request(
       `${super.link}GetBadges/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -132,7 +114,7 @@ export class Player extends Base {
   public GetCommunityBadgeProgress(
     steamid: string,
     badgeid = 0,
-  ): Promise<badgesprogress> {
+  ): Promise<{ quests: quest[] }> {
     return super.request(
       `${super.link}GetCommunityBadgeProgress/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,

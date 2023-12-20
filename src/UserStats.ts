@@ -22,13 +22,8 @@ interface simpleplayerachievement {
   achieved: number;
 }
 
-interface globalplayers {
-  player_count: number;
-  result: number;
-}
-
 interface playerstats {
-  steamid: string;
+  steamID: string;
   gameName: string;
   achievements: playerachievement[] | simpleplayerachievement[];
   success: boolean;
@@ -48,7 +43,7 @@ interface gamestats {
   achievements: achievementstats[];
 }
 
-interface gameschema {
+interface game {
   gameName: string;
   gameVersion: string;
   availableGameStats: gamestats;
@@ -61,7 +56,7 @@ export class UserStats extends Base {
 
   public GetGlobalAchievementPercentagesForApp(
     gameid: number,
-  ): Promise<achievementpercentages> {
+  ): Promise<{ achievementpercentages: achievementpercentages }> {
     return super.request(
       `${super.link}GetGlobalAchievementPercentagesForApp/v2/?gameid=${gameid}`,
     );
@@ -69,7 +64,7 @@ export class UserStats extends Base {
 
   public GetNumberOfCurrentPlayers(
     appid: number,
-  ): Promise<globalplayers> {
+  ): Promise<{ player_count: number; result: number }> {
     return super.request(
       `${super.link}GetNumberOfCurrentPlayers/v1/?appid=${appid}`,
     );
@@ -79,7 +74,7 @@ export class UserStats extends Base {
     steamid: string,
     appid: number,
     language = "en",
-  ): Promise<playerstats> {
+  ): Promise<{ playerstats: playerstats }> {
     return super.request(
       `${super.link}GetPlayerAchievements/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -87,7 +82,10 @@ export class UserStats extends Base {
     );
   }
 
-  public GetSchemaForGame(appid: number, language = "en"): Promise<gameschema> {
+  public GetSchemaForGame(
+    appid: number,
+    language = "en",
+  ): Promise<{ game: game }> {
     return super.request(
       `${super.link}GetSchemaForGame/v2/?key=${super.key}&appid=${appid}&l=${language}`,
     );
@@ -96,7 +94,7 @@ export class UserStats extends Base {
   public GetUserStatsForGame(
     steamid: string,
     appid: number,
-  ): Promise<playerstats> {
+  ): Promise<{ playerstats: playerstats }> {
     return super.request(
       `${super.link}GetUserStatsForGame/v2/?key=${super.key}&steamid=${new SteamID(
         steamid,
