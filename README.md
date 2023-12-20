@@ -2,8 +2,7 @@
 <p align="center"><i>an easy to use wrapper for the steam web API</i></p>
 <hr>
 
-## How to use:
 
-## Included Web API lists:
+# Disclaimer
 
-## Excluded with reason:
+> **Be Aware that this project is *NOT* production ready and subject to change!**
