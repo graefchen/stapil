@@ -1,16 +1,16 @@
 import { Base, SteamID } from "./_base.ts";
 
-interface friend {
+export interface friend {
   steamid: string;
   relationship: string;
   friend_since: number;
 }
 
-interface friendlist {
+export interface friendlist {
   friends: friend[];
 }
 
-interface player {
+export interface player {
   steamid: string;
   communityvisibilitystate: number;
   profilestate: number;
@@ -30,7 +30,7 @@ interface player {
   loccountrycode: string;
 }
 
-interface group {
+export interface group {
   gid: string;
 }
 

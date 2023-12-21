@@ -1,13 +1,13 @@
 import { Base } from "./_base.ts";
 
-interface parameter {
+export interface parameter {
   name: string;
   type: string;
   optional: boolean;
   description: string;
 }
 
-interface methode {
+export interface methode {
   name: string;
   version: number;
   httpmethode: string;
@@ -15,12 +15,12 @@ interface methode {
   parameters: parameter[];
 }
 
-interface steaminterface {
+export interface steaminterface {
   name: string;
   methods: methode[];
 }
 
-interface apilist {
+export interface apilist {
   interfaces: steaminterface[];
 }
 

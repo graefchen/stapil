@@ -1,15 +1,15 @@
 import { Base } from "./_base.ts";
 
-interface app {
+export interface app {
   appid: number;
   name: string;
 }
 
-interface apps {
+export interface apps {
   app: app[];
 }
 
-interface applist {
+export interface applist {
   apps: apps;
 }
 

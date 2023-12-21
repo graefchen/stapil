@@ -1,13 +1,13 @@
 import { Stapil } from "./src/Stapil.ts";
 
 // getting the steam id
-const secrets = JSON.parse(await Deno.readTextFile("./secret.json"))
+const secrets = JSON.parse(await Deno.readTextFile("./secret.json"));
 const key = secrets.steam.web_api_key;
 
 const stapil = new Stapil(key);
 
 const apiListData = await stapil.ISteamWebAPIUtil.GetSupportedAPIList(true);
-const list = apiListData.apilist.interfaces.filter(element => {
+const list = apiListData.apilist.interfaces.filter((element) => {
   // Just check if any name has a number in it
   // mostly because any interface with an number in it is a
   // video game web api interface for games from valve

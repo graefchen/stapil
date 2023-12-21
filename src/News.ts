@@ -1,6 +1,6 @@
 import { Base } from "./_base.ts";
 
-interface newsitems {
+export interface newsitems {
   gid: string;
   title: string;
   url: string;
@@ -14,7 +14,7 @@ interface newsitems {
   appid: number;
 }
 
-interface appnews {
+export interface appnews {
   appid: number;
   newsitems: newsitems[];
   count: number;

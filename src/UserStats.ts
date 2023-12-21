@@ -1,15 +1,15 @@
 import { Base, SteamID } from "./_base.ts";
 
-interface gameachievement {
+export interface gameachievement {
   name: string;
   percentage: number;
 }
 
-interface achievementpercentages {
+export interface achievementpercentages {
   achievements: gameachievement[];
 }
 
-interface playerachievement {
+export interface playerachievement {
   apiname: string;
   achieved: number;
   unlocktime: number;
@@ -17,19 +17,19 @@ interface playerachievement {
   description: string;
 }
 
-interface simpleplayerachievement {
+export interface simpleplayerachievement {
   name: string;
   achieved: number;
 }
 
-interface playerstats {
+export interface playerstats {
   steamID: string;
   gameName: string;
   achievements: playerachievement[] | simpleplayerachievement[];
   success: boolean;
 }
 
-interface achievementstats {
+export interface achievementstats {
   name: string;
   defaultvalue: number;
   displayname: string;
@@ -39,11 +39,11 @@ interface achievementstats {
   icongray: string;
 }
 
-interface gamestats {
+export interface gamestats {
   achievements: achievementstats[];
 }
 
-interface game {
+export interface game {
   gameName: string;
   gameVersion: string;
   availableGameStats: gamestats;

@@ -1,6 +1,6 @@
 import { Base, SteamID } from "./_base.ts";
 
-interface game {
+export interface recentgame {
   appid: number;
   name: string;
   playtime_2weeks: number;
@@ -11,7 +11,7 @@ interface game {
   playtime_linux_forever: number;
 }
 
-interface ownedgame {
+export interface ownedgame {
   appid: number;
   name?: string;
   playtime_forever: number;
@@ -25,7 +25,7 @@ interface ownedgame {
   playtime_disconnected: number;
 }
 
-interface badge {
+export interface badge {
   badgeid: number;
   appid: number;
   level: number;
@@ -36,7 +36,7 @@ interface badge {
   scarcity: number;
 }
 
-interface badges {
+export interface badges {
   badges: badge[];
   player_xp: number;
   player_level: number;
@@ -44,7 +44,7 @@ interface badges {
   player_xp_needed_current_level: number;
 }
 
-interface quest {
+export interface quest {
   questid: number;
   completed: boolean;
 }
@@ -70,7 +70,7 @@ export class Player extends Base {
   public GetRecentlyPlayedGames(
     steamid: string,
     count = 0,
-  ): Promise<{ total_count: number; games: ownedgame[] }> {
+  ): Promise<{ total_count: number; games: recentgame[] }> {
     return super.request(
       `${super.link}GetRecentlyPlayedGames/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
