@@ -15,13 +15,13 @@ export interface methode {
   parameters: parameter[];
 }
 
-export interface steaminterface {
+export interface steamInterface {
   name: string;
   methods: methode[];
 }
 
 export interface apilist {
-  interfaces: steaminterface[];
+  interfaces: steamInterface[];
 }
 
 export class Utils extends Base {
@@ -29,11 +29,11 @@ export class Utils extends Base {
     super(key, "http://api.steampowered.com/ISteamWebAPIUtil/");
   }
 
-  public GetServerInfo() {
+  public getServerInfo() {
     return super.request(`${super.link}GetServerInfo/v1/`);
   }
 
-  public GetSupportedAPIList(keyless = true): Promise<{ apilist: apilist }> {
+  public getSupportedAPIList(keyless = true): Promise<{ apilist: apilist }> {
     return keyless
       ? super.request(`${super.link}GetSupportedAPIList/v1/`)
       : super.request(`${super.link}GetSupportedAPIList/v1/?key=${super.key}`);

@@ -9,7 +9,7 @@ export interface apps {
   app: app[];
 }
 
-export interface applist {
+export interface appList {
   apps: apps;
 }
 
@@ -18,7 +18,7 @@ export class App extends Base {
     super(key, "http://api.steampowered.com/ISteamApps/");
   }
 
-  public GetAppList(): Promise<{ applist: applist }> {
+  public getAppList(): Promise<{ applist: appList }> {
     return super.request(`${super.link}GetAppList/v2/`);
   }
 
@@ -36,7 +36,7 @@ export class App extends Base {
   //   return super.request(`${this.link}GetServersAtAddress/v1/?addr=${addr}`);
   // }
 
-  public UpToDateCheck(
+  public upToDateCheck(
     appid: number,
     version: number,
   ): Promise<

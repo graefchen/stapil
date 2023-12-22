@@ -6,19 +6,19 @@ import { UserStats } from "./UserStats.ts";
 import { Utils } from "./Utils.ts";
 
 export class Stapil {
-  public IPlayerService: Player;
-  public ISteamApps: App;
-  public ISteamNews: News;
-  public ISteamUser: User;
-  public ISteamUserStats: UserStats;
-  public ISteamWebAPIUtil: Utils;
+  public Player: Player;
+  public Apps: App;
+  public News: News;
+  public User: User;
+  public UserStats: UserStats;
+  public WebAPIUtil: Utils;
 
   constructor(key: string) {
-    this.IPlayerService = new Player(key);
-    this.ISteamApps = new App(key);
-    this.ISteamNews = new News(key);
-    this.ISteamUser = new User(key);
-    this.ISteamUserStats = new UserStats(key);
-    this.ISteamWebAPIUtil = new Utils(key);
+    this.Player = new Player(key);
+    this.Apps = new App(key);
+    this.News = new News(key);
+    this.User = new User(key);
+    this.UserStats = new UserStats(key);
+    this.WebAPIUtil = new Utils(key);
   }
 }

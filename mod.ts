@@ -1,42 +1,42 @@
 import { Stapil } from "./src/Stapil.ts";
 
-import { app, applist, apps } from "./src/App.ts";
+import { app, appList, apps } from "./src/App.ts";
 import { appnews, newsitems } from "./src/News.ts";
-import { badge, badges, ownedgame, quest, recentgame } from "./src/Player.ts";
-import { friend, friendlist, group, player } from "./src/User.ts";
+import { badge, badges, ownedGame, quest, recentGame } from "./src/Player.ts";
+import { friend, friendList, group, player } from "./src/User.ts";
 import {
-  achievementpercentages,
-  achievementstats,
+  achievementPercentages,
+  achievementStats,
   game,
-  gameachievement,
-  gamestats,
+  gameAchievement,
+  gameStats,
   playerachievement,
-  playerstats,
-  simpleplayerachievement,
+  playerStats,
+  simplePlayerAchievement,
 } from "./src/UserStats.ts";
 
 export { Stapil };
 export type {
-  achievementpercentages,
-  achievementstats,
+  achievementPercentages,
+  achievementStats,
   app,
-  applist,
+  appList,
   appnews,
   apps,
   badge,
   badges,
   friend,
-  friendlist,
+  friendList,
   game,
-  gameachievement,
-  gamestats,
+  gameAchievement,
+  gameStats,
   group,
   newsitems,
-  ownedgame,
+  ownedGame,
   player,
   playerachievement,
-  playerstats,
+  playerStats,
   quest,
-  recentgame,
-  simpleplayerachievement,
+  recentGame,
+  simplePlayerAchievement,
 };

@@ -1,12 +1,12 @@
 import { Base, SteamID } from "./_base.ts";
 
-export interface gameachievement {
+export interface gameAchievement {
   name: string;
   percentage: number;
 }
 
-export interface achievementpercentages {
-  achievements: gameachievement[];
+export interface achievementPercentages {
+  achievements: gameAchievement[];
 }
 
 export interface playerachievement {
@@ -17,19 +17,19 @@ export interface playerachievement {
   description: string;
 }
 
-export interface simpleplayerachievement {
+export interface simplePlayerAchievement {
   name: string;
   achieved: number;
 }
 
-export interface playerstats {
+export interface playerStats {
   steamID: string;
   gameName: string;
-  achievements: playerachievement[] | simpleplayerachievement[];
+  achievements: playerachievement[] | simplePlayerAchievement[];
   success: boolean;
 }
 
-export interface achievementstats {
+export interface achievementStats {
   name: string;
   defaultvalue: number;
   displayname: string;
@@ -39,14 +39,14 @@ export interface achievementstats {
   icongray: string;
 }
 
-export interface gamestats {
-  achievements: achievementstats[];
+export interface gameStats {
+  achievements: achievementStats[];
 }
 
 export interface game {
   gameName: string;
   gameVersion: string;
-  availableGameStats: gamestats;
+  availableGameStats: gameStats;
 }
 
 export class UserStats extends Base {
@@ -54,15 +54,15 @@ export class UserStats extends Base {
     super(key, "http://api.steampowered.com/ISteamUserStats/");
   }
 
-  public GetGlobalAchievementPercentagesForApp(
+  public getGlobalAchievementPercentagesForApp(
     gameid: number,
-  ): Promise<{ achievementpercentages: achievementpercentages }> {
+  ): Promise<{ achievementpercentages: achievementPercentages }> {
     return super.request(
       `${super.link}GetGlobalAchievementPercentagesForApp/v2/?gameid=${gameid}`,
     );
   }
 
-  public GetNumberOfCurrentPlayers(
+  public getNumberOfCurrentPlayers(
     appid: number,
   ): Promise<{ player_count: number; result: number }> {
     return super.request(
@@ -70,11 +70,11 @@ export class UserStats extends Base {
     );
   }
 
-  public GetPlayerAchievements(
+  public getPlayerAchievements(
     steamid: string,
     appid: number,
     language = "en",
-  ): Promise<{ playerstats: playerstats }> {
+  ): Promise<{ playerstats: playerStats }> {
     return super.request(
       `${super.link}GetPlayerAchievements/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -82,7 +82,7 @@ export class UserStats extends Base {
     );
   }
 
-  public GetSchemaForGame(
+  public getGameScheme(
     appid: number,
     language = "en",
   ): Promise<{ game: game }> {
@@ -91,10 +91,10 @@ export class UserStats extends Base {
     );
   }
 
-  public GetUserStatsForGame(
+  public getUserStatsForGame(
     steamid: string,
     appid: number,
-  ): Promise<{ playerstats: playerstats }> {
+  ): Promise<{ playerstats: playerStats }> {
     return super.request(
       `${super.link}GetUserStatsForGame/v2/?key=${super.key}&steamid=${new SteamID(
         steamid,

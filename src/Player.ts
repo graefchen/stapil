@@ -1,6 +1,6 @@
 import { Base, SteamID } from "./_base.ts";
 
-export interface recentgame {
+export interface recentGame {
   appid: number;
   name: string;
   playtime_2weeks: number;
@@ -11,7 +11,7 @@ export interface recentgame {
   playtime_linux_forever: number;
 }
 
-export interface ownedgame {
+export interface ownedGame {
   appid: number;
   name?: string;
   playtime_forever: number;
@@ -67,10 +67,10 @@ export class Player extends Base {
   //   );
   // }
 
-  public GetRecentlyPlayedGames(
+  public getRecentlyPlayedGames(
     steamid: string,
     count = 0,
-  ): Promise<{ total_count: number; games: recentgame[] }> {
+  ): Promise<{ total_count: number; games: recentGame[] }> {
     return super.request(
       `${super.link}GetRecentlyPlayedGames/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -78,7 +78,7 @@ export class Player extends Base {
     );
   }
 
-  public GetOwnedGames(
+  public getOwnedGames(
     steamid: string,
     include_appinfo = false,
     include_played_free_games = false,
@@ -87,7 +87,7 @@ export class Player extends Base {
     skip_unvetted_apps = false,
     language = "en",
     include_extended_appinfo = false,
-  ): Promise<{ game_count: number; games: ownedgame[] }> {
+  ): Promise<{ game_count: number; games: ownedGame[] }> {
     return super.request(
       `${super.link}GetOwnedGames/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -95,7 +95,7 @@ export class Player extends Base {
     );
   }
 
-  public GetSteamLevel(steamid: string): Promise<{ player_level: number }> {
+  public getSteamLevel(steamid: string): Promise<{ player_level: number }> {
     return super.request(
       `${super.link}GetSteamLevel/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -103,7 +103,7 @@ export class Player extends Base {
     );
   }
 
-  public GetBadges(steamid: string): Promise<{ badges: badges }> {
+  public getBadges(steamid: string): Promise<{ badges: badges }> {
     return super.request(
       `${super.link}GetBadges/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -111,7 +111,7 @@ export class Player extends Base {
     );
   }
 
-  public GetCommunityBadgeProgress(
+  public getCommunityBadgeProgress(
     steamid: string,
     badgeid = 0,
   ): Promise<{ quests: quest[] }> {

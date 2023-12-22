@@ -25,7 +25,7 @@ export class News extends Base {
     super(key, "http://api.steampowered.com/ISteamNews/");
   }
 
-  public GetNewsForApp(
+  public getNewsForApp(
     appid: number,
     maxlength = 0,
     enddate = Math.floor(Date.now() / 1000),

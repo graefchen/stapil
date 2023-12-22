@@ -6,7 +6,7 @@ export interface friend {
   friend_since: number;
 }
 
-export interface friendlist {
+export interface friendList {
   friends: friend[];
 }
 
@@ -39,10 +39,10 @@ export class User extends Base {
     super(key, "http://api.steampowered.com/ISteamUser/");
   }
 
-  public GetFriendList(
+  public getFriendList(
     steamid: string,
     relationship = "friend",
-  ): Promise<{ friendlist: friendlist }> {
+  ): Promise<{ friendlist: friendList }> {
     return super.request(
       `${super.link}GetFriendList/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -57,13 +57,13 @@ export class User extends Base {
   //   );
   // }
 
-  public GetPlayerSummaries(steamids: string): Promise<{ players: player[] }> {
+  public getPlayerSummaries(steamids: string): Promise<{ players: player[] }> {
     return super.request(
       `${super.link}GetPlayerSummaries/v2/?key=${super.key}&steamids=${steamids}`,
     );
   }
 
-  public GetUserGroupList(
+  public getUserGroupList(
     steamid: string,
   ): Promise<{ success: boolean; groups: group[] }> {
     return super.request(
@@ -73,7 +73,7 @@ export class User extends Base {
     );
   }
 
-  public ResolveVanityURL(
+  public resolveVanityURL(
     vanityurl: string,
     url_type = 1,
   ): Promise<{ success: number; steamid: string }> {
