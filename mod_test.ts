@@ -47,7 +47,7 @@ Deno.test(async function IsWorkingISteamUserStats() {
   );
   await stapil.UserStats.getNumberOfCurrentPlayers(skyrim_appid);
   await stapil.UserStats.getPlayerAchievements(id, skyrim_appid);
-  await stapil.UserStats.GetSchemaForGame(skyrim_appid);
+  await stapil.UserStats.getGameScheme(skyrim_appid);
   await stapil.UserStats.getUserStatsForGame(id, skyrim_appid);
 });
 

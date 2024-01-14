@@ -52,9 +52,6 @@ export interface game {
 }
 
 export class UserStats extends WebApi {
-  GetSchemaForGame(skyrim_appid: number) {
-    throw new Error("Method not implemented.");
-  }
   constructor(key: string) {
     super(key, "http://api.steampowered.com/ISteamUserStats/");
   }
