@@ -1,4 +1,5 @@
-import { Base } from "./_base.ts";
+import { WebApi } from "../utils/WebApi.ts";
+import { steamWebRequest } from "../utils/WebRequest.ts";
 
 export interface newsitems {
   gid: string;
@@ -20,7 +21,7 @@ export interface appnews {
   count: number;
 }
 
-export class News extends Base {
+export class News extends WebApi {
   constructor(key: string) {
     super(key, "http://api.steampowered.com/ISteamNews/");
   }
@@ -33,7 +34,7 @@ export class News extends Base {
     feeds = "",
     tags = "",
   ): Promise<{ appnews: appnews }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetNewsForApp/v2/?appid=${appid}&maxlength=${maxlength}&enddate=${enddate}&count=${count}&feeds=${feeds}&tags=${tags}`,
     );
   }

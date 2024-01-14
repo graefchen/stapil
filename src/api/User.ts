@@ -1,4 +1,6 @@
-import { Base, SteamID } from "./_base.ts";
+import { SteamID } from "../utils/SteamID.ts";
+import { WebApi } from "../utils/WebApi.ts";
+import { steamWebRequest } from "../utils/WebRequest.ts";
 
 export interface friend {
   steamid: string;
@@ -34,7 +36,7 @@ export interface group {
   gid: string;
 }
 
-export class User extends Base {
+export class User extends WebApi {
   constructor(key: string) {
     super(key, "http://api.steampowered.com/ISteamUser/");
   }
@@ -43,7 +45,7 @@ export class User extends Base {
     steamid: string,
     relationship = "friend",
   ): Promise<{ friendlist: friendList }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetFriendList/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
       )}&relationship=${relationship}`,
@@ -52,13 +54,13 @@ export class User extends Base {
 
   // TODO: Check if we should uncomment this.
   // public GetPlayerBans(steamids: string) {
-  //   return super.request(
+  //   return steamWebRequest(
   //     `${super.link}GetPlayerBans/v1/?key=${super.key}&steamids=${steamids}`,
   //   );
   // }
 
   public getPlayerSummaries(steamids: string): Promise<{ players: player[] }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetPlayerSummaries/v2/?key=${super.key}&steamids=${steamids}`,
     );
   }
@@ -66,7 +68,7 @@ export class User extends Base {
   public getUserGroupList(
     steamid: string,
   ): Promise<{ success: boolean; groups: group[] }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetUserGroupList/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
       )}`,
@@ -77,7 +79,7 @@ export class User extends Base {
     vanityurl: string,
     url_type = 1,
   ): Promise<{ success: number; steamid: string }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}ResolveVanityURL/v1/?key=${super.key}&vanityurl=${vanityurl}&url_type=${url_type}`,
     );
   }

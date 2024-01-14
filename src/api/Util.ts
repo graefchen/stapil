@@ -1,4 +1,5 @@
-import { Base } from "./_base.ts";
+import { WebApi } from "../utils/WebApi.ts";
+import { steamWebRequest } from "../utils/WebRequest.ts";
 
 export interface parameter {
   name: string;
@@ -24,18 +25,20 @@ export interface apilist {
   interfaces: steamInterface[];
 }
 
-export class Utils extends Base {
+export class Utils extends WebApi {
   constructor(key: string) {
     super(key, "http://api.steampowered.com/ISteamWebAPIUtil/");
   }
 
   public getServerInfo() {
-    return super.request(`${super.link}GetServerInfo/v1/`);
+    return steamWebRequest(`${super.link}GetServerInfo/v1/`);
   }
 
   public getSupportedAPIList(keyless = true): Promise<{ apilist: apilist }> {
     return keyless
-      ? super.request(`${super.link}GetSupportedAPIList/v1/`)
-      : super.request(`${super.link}GetSupportedAPIList/v1/?key=${super.key}`);
+      ? steamWebRequest(`${super.link}GetSupportedAPIList/v1/`)
+      : steamWebRequest(
+        `${super.link}GetSupportedAPIList/v1/?key=${super.key}`,
+      );
   }
 }

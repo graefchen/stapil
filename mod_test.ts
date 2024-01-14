@@ -14,44 +14,44 @@ const ark_appid = 346110;
 const stapil = new Stapil(key);
 
 Deno.test(async function IsWorkingIPlayerService() {
-  await stapil.IPlayerService.GetRecentlyPlayedGames(id, 10);
-  await stapil.IPlayerService.GetOwnedGames(id);
-  await stapil.IPlayerService.GetOwnedGames(id, true);
-  await stapil.IPlayerService.GetOwnedGames(id, true, true);
-  await stapil.IPlayerService.GetSteamLevel(id);
-  await stapil.IPlayerService.GetBadges(id);
-  await stapil.IPlayerService.GetCommunityBadgeProgress(id);
+  await stapil.Player.getRecentlyPlayedGames(id, 10);
+  await stapil.Player.getOwnedGames(id);
+  await stapil.Player.getOwnedGames(id, true);
+  await stapil.Player.getOwnedGames(id, true, true);
+  await stapil.Player.getSteamLevel(id);
+  await stapil.Player.getBadges(id);
+  await stapil.Player.getCommunityBadgeProgress(id);
 });
 
 Deno.test(async function IsWorkingISteamApps() {
-  await stapil.ISteamApps.GetAppList();
-  await stapil.ISteamApps.UpToDateCheck(ark_appid, 1);
-  await stapil.ISteamApps.UpToDateCheck(ark_appid, 1000);
-  await stapil.ISteamApps.UpToDateCheck(skyrim_appid, 1);
+  await stapil.Apps.getAppList();
+  await stapil.Apps.upToDateCheck(ark_appid, 1);
+  await stapil.Apps.upToDateCheck(ark_appid, 1000);
+  await stapil.Apps.upToDateCheck(skyrim_appid, 1);
 });
 
 Deno.test(async function IsWorkingISteamNews() {
-  await stapil.ISteamNews.GetNewsForApp(skyrim_appid);
+  await stapil.News.getNewsForApp(skyrim_appid);
 });
 
 Deno.test(async function IsWorkingISteamUser() {
-  await stapil.ISteamUser.GetFriendList(id);
-  await stapil.ISteamUser.GetPlayerSummaries(id);
-  await stapil.ISteamUser.GetUserGroupList(id);
-  await stapil.ISteamUser.ResolveVanityURL(vanityurl);
+  await stapil.User.getFriendList(id);
+  await stapil.User.getPlayerSummaries(id);
+  await stapil.User.getUserGroupList(id);
+  await stapil.User.resolveVanityURL(vanityurl);
 });
 
 Deno.test(async function IsWorkingISteamUserStats() {
-  await stapil.ISteamUserStats.GetGlobalAchievementPercentagesForApp(
+  await stapil.UserStats.getGlobalAchievementPercentagesForApp(
     skyrim_appid,
   );
-  await stapil.ISteamUserStats.GetNumberOfCurrentPlayers(skyrim_appid);
-  await stapil.ISteamUserStats.GetPlayerAchievements(id, skyrim_appid);
-  await stapil.ISteamUserStats.GetSchemaForGame(skyrim_appid);
-  await stapil.ISteamUserStats.GetUserStatsForGame(id, skyrim_appid);
+  await stapil.UserStats.getNumberOfCurrentPlayers(skyrim_appid);
+  await stapil.UserStats.getPlayerAchievements(id, skyrim_appid);
+  await stapil.UserStats.GetSchemaForGame(skyrim_appid);
+  await stapil.UserStats.getUserStatsForGame(id, skyrim_appid);
 });
 
 Deno.test(async function IsWorkingISteamWebAPIUtil() {
-  await stapil.ISteamWebAPIUtil.GetServerInfo();
-  await stapil.ISteamWebAPIUtil.GetSupportedAPIList(key);
+  await stapil.WebAPIUtil.getServerInfo();
+  await stapil.WebAPIUtil.getSupportedAPIList(key);
 });

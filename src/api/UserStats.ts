@@ -1,4 +1,6 @@
-import { Base, SteamID } from "./_base.ts";
+import { SteamID } from "../utils/SteamID.ts";
+import { WebApi } from "../utils/WebApi.ts";
+import { steamWebRequest } from "../utils/WebRequest.ts";
 
 export interface gameAchievement {
   name: string;
@@ -49,7 +51,10 @@ export interface game {
   availableGameStats: gameStats;
 }
 
-export class UserStats extends Base {
+export class UserStats extends WebApi {
+  GetSchemaForGame(skyrim_appid: number) {
+    throw new Error("Method not implemented.");
+  }
   constructor(key: string) {
     super(key, "http://api.steampowered.com/ISteamUserStats/");
   }
@@ -57,7 +62,7 @@ export class UserStats extends Base {
   public getGlobalAchievementPercentagesForApp(
     gameid: number,
   ): Promise<{ achievementpercentages: achievementPercentages }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetGlobalAchievementPercentagesForApp/v2/?gameid=${gameid}`,
     );
   }
@@ -65,7 +70,7 @@ export class UserStats extends Base {
   public getNumberOfCurrentPlayers(
     appid: number,
   ): Promise<{ player_count: number; result: number }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetNumberOfCurrentPlayers/v1/?appid=${appid}`,
     );
   }
@@ -75,7 +80,7 @@ export class UserStats extends Base {
     appid: number,
     language = "en",
   ): Promise<{ playerstats: playerStats }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetPlayerAchievements/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
       )}&appid=${appid}&l=${language}`,
@@ -86,7 +91,7 @@ export class UserStats extends Base {
     appid: number,
     language = "en",
   ): Promise<{ game: game }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetSchemaForGame/v2/?key=${super.key}&appid=${appid}&l=${language}`,
     );
   }
@@ -95,7 +100,7 @@ export class UserStats extends Base {
     steamid: string,
     appid: number,
   ): Promise<{ playerstats: playerStats }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetUserStatsForGame/v2/?key=${super.key}&steamid=${new SteamID(
         steamid,
       )}&appid=${appid}`,

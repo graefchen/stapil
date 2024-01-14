@@ -1,9 +1,9 @@
-import { App } from "./App.ts";
-import { News } from "./News.ts";
-import { Player } from "./Player.ts";
-import { User } from "./User.ts";
-import { UserStats } from "./UserStats.ts";
-import { Utils } from "./Utils.ts";
+import { App } from "./api/App.ts";
+import { News } from "./api/News.ts";
+import { Player } from "./api/Player.ts";
+import { User } from "./api/User.ts";
+import { UserStats } from "./api/UserStats.ts";
+import { Utils } from "./api/Util.ts";
 
 export class Stapil {
   public Player: Player;

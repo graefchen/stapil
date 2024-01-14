@@ -1,4 +1,6 @@
-import { Base, SteamID } from "./_base.ts";
+import { SteamID } from "../utils/SteamID.ts";
+import { WebApi } from "../utils/WebApi.ts";
+import { steamWebRequest } from "../utils/WebRequest.ts";
 
 export interface recentGame {
   appid: number;
@@ -49,7 +51,7 @@ export interface quest {
   completed: boolean;
 }
 
-export class Player extends Base {
+export class Player extends WebApi {
   /** */
   constructor(key: string) {
     super(key, "http://api.steampowered.com/IPlayerService/");
@@ -60,7 +62,7 @@ export class Player extends Base {
   //   steamid: string,
   //   appid_playing: number,
   // ) {
-  //   return super.request(
+  //   return steamWebRequest(
   //     `${super.link}IsPlayingSharedGame/v1/?key=${super.key}&steamid=${new SteamID(
   //       steamid,
   //     )}&appid_playing=${appid_playing}`,
@@ -71,7 +73,7 @@ export class Player extends Base {
     steamid: string,
     count = 0,
   ): Promise<{ total_count: number; games: recentGame[] }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetRecentlyPlayedGames/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
       )}&count=${count}`,
@@ -88,7 +90,7 @@ export class Player extends Base {
     language = "en",
     include_extended_appinfo = false,
   ): Promise<{ game_count: number; games: ownedGame[] }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetOwnedGames/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
       )}&include_appinfo=${include_appinfo}&include_played_free_games=${include_played_free_games}&appids_filter=${appids_filter}&include_free_sub=${include_free_sub}&skip_unvetted_apps=${skip_unvetted_apps}&language=${language}&include_extended_appinfo=${include_extended_appinfo}`,
@@ -96,7 +98,7 @@ export class Player extends Base {
   }
 
   public getSteamLevel(steamid: string): Promise<{ player_level: number }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetSteamLevel/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
       )}`,
@@ -104,7 +106,7 @@ export class Player extends Base {
   }
 
   public getBadges(steamid: string): Promise<{ badges: badges }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetBadges/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
       )}`,
@@ -115,7 +117,7 @@ export class Player extends Base {
     steamid: string,
     badgeid = 0,
   ): Promise<{ quests: quest[] }> {
-    return super.request(
+    return steamWebRequest(
       `${super.link}GetCommunityBadgeProgress/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
       )}&badgeid=${badgeid}`,
