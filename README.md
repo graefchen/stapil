@@ -4,5 +4,5 @@
 
 # Disclaimer
 
-> [!WARNING] **Be Aware that this project is _NOT_ production ready and subject
-> to change!**
+> [!WARNING]
+> Be Aware that this project is NOT production ready and subject to change!

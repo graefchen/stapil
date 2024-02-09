@@ -24,10 +24,10 @@ export interface simplePlayerAchievement {
   achieved: number;
 }
 
-export interface playerStats {
+export interface playerStats<T> {
   steamID: string;
   gameName: string;
-  achievements: playerachievement[] | simplePlayerAchievement[];
+  achievements: T;
   success: boolean;
 }
 
@@ -76,7 +76,7 @@ export class UserStats extends WebApi {
     steamid: string,
     appid: number,
     language = "en",
-  ): Promise<{ playerstats: playerStats }> {
+  ): Promise<{ playerstats: playerStats<playerachievement[]> }> {
     return steamWebRequest(
       `${super.link}GetPlayerAchievements/v1/?key=${super.key}&steamid=${new SteamID(
         steamid,
@@ -96,7 +96,7 @@ export class UserStats extends WebApi {
   public getUserStatsForGame(
     steamid: string,
     appid: number,
-  ): Promise<{ playerstats: playerStats }> {
+  ): Promise<{ playerstats: playerStats<simplePlayerAchievement[]> }> {
     return steamWebRequest(
       `${super.link}GetUserStatsForGame/v2/?key=${super.key}&steamid=${new SteamID(
         steamid,
