@@ -6,7 +6,7 @@ const key = secrets.steam.web_api_key;
 
 const stapil = new Stapil(key);
 
-const apiListData = await stapil.WebAPIUtil.getSupportedAPIList(true);
+const apiListData = await stapil.WebAPIUtil.getSupportedAPIList();
 const list = apiListData.apilist.interfaces.filter((element) => {
   // Just check if any name has a number in it
   // mostly because any interface with an number in it is a

@@ -4,7 +4,8 @@
  * @param link
  * @returns
  */
-export async function steamWebRequest(link: string) {
+// deno-lint-ignore no-explicit-any
+export async function steamWebRequest(link: string): Promise<any | Error> {
   const res = await fetch(link);
   if (res.status != 200) {
     // If it is an 401 error:
