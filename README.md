@@ -1,5 +1,5 @@
-<h1 align="center"> stapil </h1>
-<p align="center"><i>an easy to use wrapper for the steam web API</i></p>
+<h1 align="center">stapil</h1>
+<p align="center"><i>📌 An very experimental steam web api wrapper for deno</i></p>
 <hr>
 
 # Disclaimer

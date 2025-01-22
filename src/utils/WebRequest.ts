@@ -4,6 +4,8 @@
  * @param link
  * @returns
  */
+// TODO: remove the lint line below and switch out the typeunsafe any
+// for an typesafe unknown
 // deno-lint-ignore no-explicit-any
 export async function steamWebRequest(link: string): Promise<any | Error> {
   const res = await fetch(link);
