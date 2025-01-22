@@ -1,3 +1,7 @@
+// deno-lint-ignore-file no-explicit-any
+
+import { Link } from "./Link.ts";
+
 /**
  * @async
  * @function steamWebRequest
@@ -6,9 +10,8 @@
  */
 // TODO: remove the lint line below and switch out the typeunsafe any
 // for an typesafe unknown
-// deno-lint-ignore no-explicit-any
-export async function steamWebRequest(link: string): Promise<any | Error> {
-  const res = await fetch(link);
+export async function steamWebRequest(link: Link): Promise<any | Error> {
+  const res = await fetch(link.toString());
   if (res.status != 200) {
     // If it is an 401 error:
     if (res.status == 401) {
