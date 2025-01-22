@@ -19,7 +19,7 @@ export class App {
   #options: Options;
   baseLink = "http://api.steampowered.com/ISteamApps/";
 
-  constructor(key: string) {
+  constructor(key: string | undefined) {
     this.#options = new Options(key);
   }
 
