@@ -61,9 +61,8 @@ export class UserStats {
   }
 
   public getGlobalAchievementPercentagesForApp(args: {
-    gameid: number,
-  }
-  ): Promise<{ achievementpercentages: achievementPercentages }> {
+    gameid: number;
+  }): Promise<{ achievementpercentages: achievementPercentages }> {
     const link = new Link(
       this.baseLink,
       "GetGlobalAchievementPercentagesForApp/v2/",
@@ -74,7 +73,7 @@ export class UserStats {
   }
 
   public getNumberOfCurrentPlayers(
-    args: {appid: number},
+    args: { appid: number },
   ): Promise<{ player_count: number; result: number }> {
     const link = new Link(
       this.baseLink,
@@ -85,11 +84,11 @@ export class UserStats {
     return steamWebRequest(link);
   }
 
-  public getPlayerAchievements( args: {
-    steamid: string,
-    appid: number,
-    language?: string,}
-  ): Promise<{ playerstats: playerStats<playerachievement[]> }> {
+  public getPlayerAchievements(args: {
+    steamid: string;
+    appid: number;
+    language?: string;
+  }): Promise<{ playerstats: playerStats<playerachievement[]> }> {
     const link = new Link(
       this.baseLink,
       "GetPlayerAchievements/v1/",
@@ -100,10 +99,9 @@ export class UserStats {
   }
 
   public getGameScheme(args: {
-    appid: number,
-    language?: string,
-  }
-  ): Promise<{ game: game }> {
+    appid: number;
+    language?: string;
+  }): Promise<{ game: game }> {
     const link = new Link(
       this.baseLink,
       "GetSchemaForGame/v2/",
@@ -113,10 +111,10 @@ export class UserStats {
     return steamWebRequest(link);
   }
 
-  public getUserStatsForGame( args:{
-    steamid: string,
-    appid: number,}
-  ): Promise<{ playerstats: playerStats<simplePlayerAchievement[]> }> {
+  public getUserStatsForGame(args: {
+    steamid: string;
+    appid: number;
+  }): Promise<{ playerstats: playerStats<simplePlayerAchievement[]> }> {
     const link = new Link(
       this.baseLink,
       "GetUserStatsForGame/v2/",

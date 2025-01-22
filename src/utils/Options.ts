@@ -17,12 +17,13 @@ export class Options {
 
   public toString(args: object): string {
     const array = [];
-    if (this.#key != undefined)
-      array.push(`key=${this.#key}`)
-    for(const [key, value] of Object.entries(args)) {
+    if (this.#key != undefined) {
+      array.push(`key=${this.#key}`);
+    }
+    for (const [key, value] of Object.entries(args)) {
       array.push(`${key}=${value}`);
     }
-    if(array.length == 0) return "";
+    if (array.length == 0) return "";
     return "?" + array.join("&");
   }
 }

@@ -11,47 +11,60 @@ const vanityurl =
 const skyrim_appid = 72850;
 const ark_appid = 346110;
 
-const stapil = new Stapil(key);
+const stapil = new Stapil({ key: key });
 
 Deno.test(async function IsWorkingIPlayerService() {
-  await stapil.Player.getRecentlyPlayedGames(id, 10);
-  await stapil.Player.getOwnedGames(id);
-  await stapil.Player.getOwnedGames(id, true);
-  await stapil.Player.getOwnedGames(id, true, true);
-  await stapil.Player.getSteamLevel(id);
-  await stapil.Player.getBadges(id);
-  await stapil.Player.getCommunityBadgeProgress(id);
+  await stapil.player.getRecentlyPlayedGames({ steamid: id, count: 10 });
+  await stapil.player.getOwnedGames({ steamid: id });
+  await stapil.player.getOwnedGames({ steamid: id, include_appinfo: true });
+  await stapil.player.getOwnedGames({
+    steamid: id,
+    include_appinfo: true,
+    include_played_free_games: true,
+  });
+  await stapil.player.getOwnedGames({
+    steamid: id,
+    include_appinfo: true,
+    include_played_free_games: true,
+    include_extended_appinfo: true,
+  });
+  await stapil.player.getSteamLevel({ steamid: id });
+  await stapil.player.getBadges({ steamid: id });
+  await stapil.player.getCommunityBadgeProgress({ steamid: id });
 });
 
 Deno.test(async function IsWorkingISteamApps() {
-  await stapil.Apps.getAppList();
-  await stapil.Apps.upToDateCheck(ark_appid, 1);
-  await stapil.Apps.upToDateCheck(ark_appid, 1000);
-  await stapil.Apps.upToDateCheck(skyrim_appid, 1);
+  await stapil.apps.getAppList();
+  await stapil.apps.upToDateCheck({ appid: ark_appid, version: 1 });
+  await stapil.apps.upToDateCheck({ appid: ark_appid, version: 1000 });
+  await stapil.apps.upToDateCheck({ appid: skyrim_appid, version: 1 });
 });
 
 Deno.test(async function IsWorkingISteamNews() {
-  await stapil.News.getNewsForApp(skyrim_appid);
+  await stapil.news.getNewsForApp({ appid: skyrim_appid });
 });
 
 Deno.test(async function IsWorkingISteamUser() {
-  await stapil.User.getFriendList(id);
-  await stapil.User.getPlayerSummaries(id);
-  await stapil.User.getUserGroupList(id);
-  await stapil.User.resolveVanityURL(vanityurl);
+  await stapil.user.getFriendList({ steamid: id });
+  await stapil.user.getPlayerSummaries({ steamids: id });
+  await stapil.user.getUserGroupList({ steamid: id });
+  await stapil.user.resolveVanityURL({ vanityurl: vanityurl });
 });
 
 Deno.test(async function IsWorkingISteamUserStats() {
-  await stapil.UserStats.getGlobalAchievementPercentagesForApp(
-    skyrim_appid,
-  );
-  await stapil.UserStats.getNumberOfCurrentPlayers(skyrim_appid);
-  await stapil.UserStats.getPlayerAchievements(id, skyrim_appid);
-  await stapil.UserStats.getGameScheme(skyrim_appid);
-  await stapil.UserStats.getUserStatsForGame(id, skyrim_appid);
+  await stapil.stats.getGlobalAchievementPercentagesForApp({
+    gameid: skyrim_appid,
+  });
+  await stapil.stats.getNumberOfCurrentPlayers({ appid: skyrim_appid });
+  await stapil.stats.getPlayerAchievements({
+    steamid: id,
+    appid: skyrim_appid,
+  });
+  await stapil.stats.getGameScheme({ appid: skyrim_appid });
+  await stapil.stats.getUserStatsForGame({ steamid: id, appid: skyrim_appid });
 });
 
 Deno.test(async function IsWorkingISteamWebAPIUtil() {
-  await stapil.WebAPIUtil.getServerInfo();
-  await stapil.WebAPIUtil.getSupportedAPIList(key);
+  await stapil.util.getServerInfo();
+  await stapil.util.getSupportedAPIList();
 });

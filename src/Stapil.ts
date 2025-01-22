@@ -13,7 +13,7 @@ export class Stapil {
   public stats: UserStats;
   public util: Utils;
 
-  constructor(args: {key?: string}) {
+  constructor(args: { key?: string }) {
     this.player = new Player(args.key);
     this.apps = new App(args.key);
     this.news = new News(args.key);

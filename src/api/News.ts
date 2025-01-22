@@ -30,15 +30,14 @@ export class News {
     this.#options = new Options(key);
   }
 
-  public getNewsForApp( args: {
+  public getNewsForApp(args: {
     appid: number;
     maxlength?: number;
-    enddate?:number;
+    enddate?: number;
     count?: number;
     feeds?: string;
-    tags?:string;
-  }
-  ): Promise<{ appnews: appnews }> {
+    tags?: string;
+  }): Promise<{ appnews: appnews }> {
     const link = new Link(
       this.baseLink,
       "GetNewsForApp/v2/",

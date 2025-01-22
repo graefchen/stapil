@@ -67,11 +67,10 @@ export class Player {
   }
 
   // TODO: Find out which type it returns
-  public isPlayingSharedGame(args:{
-      steamid: string,
-      appid_playing: number,
-    }
-  ) {
+  public isPlayingSharedGame(args: {
+    steamid: string;
+    appid_playing: number;
+  }) {
     const link = new Link(
       this.baseLink,
       "IsPlayingSharedGame/v1/",
@@ -95,16 +94,15 @@ export class Player {
   }
 
   public getOwnedGames(args: {
-      steamid: string;
-      include_appinfo?: boolean;
-      include_played_free_games?: boolean;
-      appids_filter?: number;
-      include_free_sub?: boolean;
-      skip_unvetted_apps?: boolean;
-      language?: string;
-      include_extended_appinfo?: boolean;
-    }
-  ): Promise<{ game_count: number; games: ownedGame[] }> {
+    steamid: string;
+    include_appinfo?: boolean;
+    include_played_free_games?: boolean;
+    appids_filter?: number;
+    include_free_sub?: boolean;
+    skip_unvetted_apps?: boolean;
+    language?: string;
+    include_extended_appinfo?: boolean;
+  }): Promise<{ game_count: number; games: ownedGame[] }> {
     const link = new Link(
       this.baseLink,
       "GetOwnedGames/v1/",
@@ -114,7 +112,9 @@ export class Player {
     return steamWebRequest(link);
   }
 
-  public getSteamLevel(args: {steamid: string}): Promise<{ player_level: number }> {
+  public getSteamLevel(
+    args: { steamid: string },
+  ): Promise<{ player_level: number }> {
     const link = new Link(
       this.baseLink,
       "GetSteamLevel/v1/",
@@ -124,7 +124,7 @@ export class Player {
     return steamWebRequest(link);
   }
 
-  public getBadges(args: {steamid: string}): Promise<{ badges: badges }> {
+  public getBadges(args: { steamid: string }): Promise<{ badges: badges }> {
     const link = new Link(
       this.baseLink,
       "GetBadges/v1/",
@@ -134,12 +134,10 @@ export class Player {
     return steamWebRequest(link);
   }
 
-  public getCommunityBadgeProgress( args:  {
-    steamid: string,
-    badgeid?: number,
-  }
-  ): Promise<{ quests: quest[] }> {
-
+  public getCommunityBadgeProgress(args: {
+    steamid: string;
+    badgeid?: number;
+  }): Promise<{ quests: quest[] }> {
     const link = new Link(
       this.baseLink,
       "GetCommunityBadgeProgress/v1/",

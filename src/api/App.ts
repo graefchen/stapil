@@ -27,7 +27,7 @@ export class App {
     const link = new Link(
       this.baseLink,
       "GetAppList/v2/",
-      this.#options.toString({})
+      this.#options.toString({}),
     );
 
     return steamWebRequest(link);
@@ -59,11 +59,10 @@ export class App {
   //   return steamWebRequest(link);
   // }
 
-  public upToDateCheck( args: {
-      appid: number,
-      version: number,
-    }
-  ): Promise<
+  public upToDateCheck(args: {
+    appid: number;
+    version: number;
+  }): Promise<
     {
       success: boolean;
       up_to_date?: boolean;
@@ -76,7 +75,7 @@ export class App {
     const link = new Link(
       this.baseLink,
       "UpToDateCheck/v1/",
-      this.#options.toString(args)
+      this.#options.toString(args),
     );
 
     return steamWebRequest(link);

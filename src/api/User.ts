@@ -45,10 +45,9 @@ export class User {
   }
 
   public getFriendList(args: {
-      steamid: string,
-      relationship: string,
-    }
-  ): Promise<{ friendslist: friendList }> {
+    steamid: string;
+    relationship?: string;
+  }): Promise<{ friendslist: friendList }> {
     const link = new Link(
       this.baseLink,
       "GetFriendList/v1/",
@@ -70,9 +69,8 @@ export class User {
   // }
 
   public getPlayerSummaries(args: {
-    steamids: string,
-  }
-  ): Promise<{ players: player[] }> {
+    steamids: string;
+  }): Promise<{ players: player[] }> {
     const link = new Link(
       this.baseLink,
       "GetPlayerSummaries/v2/",
@@ -83,9 +81,8 @@ export class User {
   }
 
   public getUserGroupList(args: {
-    steamid: string,
-  }
-  ): Promise<{ success: boolean; groups: group[] }> {
+    steamid: string;
+  }): Promise<{ success: boolean; groups: group[] }> {
     const link = new Link(
       this.baseLink,
       "GetUserGroupList/v1/",
@@ -95,11 +92,10 @@ export class User {
     return steamWebRequest(link);
   }
 
-  public resolveVanityURL( args: {
+  public resolveVanityURL(args: {
     vanityurl: string;
-    url_type?:number;
-  }
-  ): Promise<{ success: number; steamid: string }> {
+    url_type?: number;
+  }): Promise<{ success: number; steamid: string }> {
     const link = new Link(
       this.baseLink,
       "ResolveVanityURL/v1/",
