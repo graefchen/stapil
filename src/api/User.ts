@@ -1,6 +1,6 @@
-import { SteamID } from "../utils/SteamID.ts";
-import { WebApi } from "../utils/WebApi.ts";
+import { Options } from "../utils/Options.ts";
 import { steamWebRequest } from "../utils/WebRequest.ts";
+import { Link } from "../utils/Link.ts";
 
 export interface friend {
   steamid: string;
@@ -36,53 +36,76 @@ export interface group {
   gid: string;
 }
 
-export class User extends WebApi {
-  constructor(key: string) {
-    super(key, "http://api.steampowered.com/ISteamUser/");
+export class User {
+  #options: Options;
+  baseLink = "http://api.steampowered.com/ISteamUser/";
+
+  constructor(key: string | undefined) {
+    this.#options = new Options(key);
   }
 
-  public getFriendList(
-    steamid: string,
-    relationship = "friend",
+  public getFriendList(args: {
+      steamid: string,
+      relationship: string,
+    }
   ): Promise<{ friendslist: friendList }> {
-    return steamWebRequest(
-      `${super.link}GetFriendList/v1/?key=${super.key}&steamid=${new SteamID(
-        steamid,
-      )}&relationship=${relationship}`,
+    const link = new Link(
+      this.baseLink,
+      "GetFriendList/v1/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
   // TODO: Check if we should uncomment this.
-  // public GetPlayerBans(steamids: string) {
-  //   return steamWebRequest(
-  //     `${super.link}GetPlayerBans/v1/?key=${super.key}&steamids=${steamids}`,
+  // public GetPlayerBans(args: {steamids: string}) {
+  //   const link = new Link(
+  //     this.baseLink,
+  //     "GetPlayerBans/v1/",
+  //     this.#options.toString(args),
   //   );
+
+  //   return steamWebRequest(link);
   // }
 
-  public getPlayerSummaries(
+  public getPlayerSummaries(args: {
     steamids: string,
+  }
   ): Promise<{ players: player[] }> {
-    return steamWebRequest(
-      `${super.link}GetPlayerSummaries/v2/?key=${super.key}&steamids=${steamids}`,
+    const link = new Link(
+      this.baseLink,
+      "GetPlayerSummaries/v2/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
-  public getUserGroupList(
+  public getUserGroupList(args: {
     steamid: string,
+  }
   ): Promise<{ success: boolean; groups: group[] }> {
-    return steamWebRequest(
-      `${super.link}GetUserGroupList/v1/?key=${super.key}&steamid=${new SteamID(
-        steamid,
-      )}`,
+    const link = new Link(
+      this.baseLink,
+      "GetUserGroupList/v1/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
-  public resolveVanityURL(
-    vanityurl: string,
-    url_type = 1,
+  public resolveVanityURL( args: {
+    vanityurl: string;
+    url_type?:number;
+  }
   ): Promise<{ success: number; steamid: string }> {
-    return steamWebRequest(
-      `${super.link}ResolveVanityURL/v1/?key=${super.key}&vanityurl=${vanityurl}&url_type=${url_type}`,
+    const link = new Link(
+      this.baseLink,
+      "ResolveVanityURL/v1/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 }
