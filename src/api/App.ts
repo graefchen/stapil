@@ -1,5 +1,6 @@
-import { WebApi } from "../utils/WebApi.ts";
+import { Options } from "../utils/Options.ts";
 import { steamWebRequest } from "../utils/WebRequest.ts";
+import { Link } from "../utils/Link.ts";
 
 export interface app {
   appid: number;
@@ -14,13 +15,22 @@ export interface appList {
   apps: apps;
 }
 
-export class App extends WebApi {
+export class App {
+  #options: Options;
+  baseLink = "http://api.steampowered.com/ISteamApps/";
+
   constructor(key: string) {
-    super(key, "http://api.steampowered.com/ISteamApps/");
+    this.#options = new Options(key);
   }
 
   public getAppList(): Promise<{ applist: appList }> {
-    return steamWebRequest(`${super.link}GetAppList/v2/`);
+    const link = new Link(
+      this.baseLink,
+      "GetAppList/v2/",
+      this.#options.toString({})
+    );
+
+    return steamWebRequest(link);
   }
 
   // While 'GetSDTConfig' is listed in the json list of the valid requests ...
@@ -28,18 +38,31 @@ export class App extends WebApi {
   // commented out.
   // There is a decision to be made to maybe include it later.
   // TODO: Check if we should uncomment this.
-  // public GetSDRConfig(appid: number) {
-  //   return steamWebRequest(`${super.link}GetSDRConfig/v1/?appid=${appid}`);
+  // public GetSDRConfig(args: {appid: number}) {
+  //   const link = new Link(
+  //     this.baseLink,
+  //     "GetSDRConfig/v1/",
+  //     this.#options.toString(args)
+  //   );
+
+  //   return steamWebRequest(link);
   // }
 
   // TODO: Check if we should uncomment this.
-  // public GetServersAtAddress(addr: string) {
-  //   return steamWebRequest(`${this.link}GetServersAtAddress/v1/?addr=${addr}`);
+  // public GetServersAtAddress(args: {addr: string}) {
+  //   const link = new Link(
+  //     this.baseLink,
+  //     "GetServersAtAddress/v1",
+  //     this.#options.toString(args)
+  //   );
+
+  //   return steamWebRequest(link);
   // }
 
-  public upToDateCheck(
-    appid: number,
-    version: number,
+  public upToDateCheck( args: {
+      appid: number,
+      version: number,
+    }
   ): Promise<
     {
       success: boolean;
@@ -50,8 +73,12 @@ export class App extends WebApi {
       error?: string;
     }
   > {
-    return steamWebRequest(
-      `${this.link}UpToDateCheck/v1/?appid=${appid}&version=${version}`,
+    const link = new Link(
+      this.baseLink,
+      "UpToDateCheck/v1/",
+      this.#options.toString(args)
     );
+
+    return steamWebRequest(link);
   }
 }
