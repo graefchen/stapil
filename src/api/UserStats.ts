@@ -1,6 +1,6 @@
-import { SteamID } from "../utils/SteamID.ts";
-import { WebApi } from "../utils/WebApi.ts";
+import { Options } from "../utils/Options.ts";
 import { steamWebRequest } from "../utils/WebRequest.ts";
+import { Link } from "../utils/Link.ts";
 
 export interface gameAchievement {
   name: string;
@@ -51,56 +51,78 @@ export interface game {
   availableGameStats: gameStats;
 }
 
-export class UserStats extends WebApi {
-  constructor(key: string) {
-    super(key, "http://api.steampowered.com/ISteamUserStats/");
+export class UserStats {
+  #options: Options;
+  baseLink = "http://api.steampowered.com/ISteamUserStats/";
+
+  /** */
+  constructor(key: string | undefined) {
+    this.#options = new Options(key);
   }
 
-  public getGlobalAchievementPercentagesForApp(
+  public getGlobalAchievementPercentagesForApp(args: {
     gameid: number,
+  }
   ): Promise<{ achievementpercentages: achievementPercentages }> {
-    return steamWebRequest(
-      `${super.link}GetGlobalAchievementPercentagesForApp/v2/?gameid=${gameid}`,
+    const link = new Link(
+      this.baseLink,
+      "GetGlobalAchievementPercentagesForApp/v2/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
   public getNumberOfCurrentPlayers(
-    appid: number,
+    args: {appid: number},
   ): Promise<{ player_count: number; result: number }> {
-    return steamWebRequest(
-      `${super.link}GetNumberOfCurrentPlayers/v1/?appid=${appid}`,
+    const link = new Link(
+      this.baseLink,
+      "GetNumberOfCurrentPlayers/v1/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
-  public getPlayerAchievements(
+  public getPlayerAchievements( args: {
     steamid: string,
     appid: number,
-    language = "en",
+    language?: string,}
   ): Promise<{ playerstats: playerStats<playerachievement[]> }> {
-    return steamWebRequest(
-      `${super.link}GetPlayerAchievements/v1/?key=${super.key}&steamid=${new SteamID(
-        steamid,
-      )}&appid=${appid}&l=${language}`,
+    const link = new Link(
+      this.baseLink,
+      "GetPlayerAchievements/v1/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
-  public getGameScheme(
+  public getGameScheme(args: {
     appid: number,
-    language = "en",
+    language?: string,
+  }
   ): Promise<{ game: game }> {
-    return steamWebRequest(
-      `${super.link}GetSchemaForGame/v2/?key=${super.key}&appid=${appid}&l=${language}`,
+    const link = new Link(
+      this.baseLink,
+      "GetSchemaForGame/v2/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
-  public getUserStatsForGame(
+  public getUserStatsForGame( args:{
     steamid: string,
-    appid: number,
+    appid: number,}
   ): Promise<{ playerstats: playerStats<simplePlayerAchievement[]> }> {
-    return steamWebRequest(
-      `${super.link}GetUserStatsForGame/v2/?key=${super.key}&steamid=${new SteamID(
-        steamid,
-      )}&appid=${appid}`,
+    const link = new Link(
+      this.baseLink,
+      "GetUserStatsForGame/v2/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 }

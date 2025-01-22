@@ -1,6 +1,6 @@
-import { SteamID } from "../utils/SteamID.ts";
-import { WebApi } from "../utils/WebApi.ts";
+import { Options } from "../utils/Options.ts";
 import { steamWebRequest } from "../utils/WebRequest.ts";
+import { Link } from "../utils/Link.ts";
 
 export interface recentGame {
   appid: number;
@@ -11,6 +11,7 @@ export interface recentGame {
   playtime_windows_forever: number;
   playtime_mac_forever: number;
   playtime_linux_forever: number;
+  playtime_deck_forever: number;
 }
 
 export interface ownedGame {
@@ -22,8 +23,13 @@ export interface ownedGame {
   playtime_windows_forever: number;
   playtime_mac_forever: number;
   playtime_linux_forever: number;
+  playtime_deck_forever: number;
   rtime_last_played: number;
   content_descriptorids?: number[];
+  capsule_filename: string;
+  has_workshop: boolean;
+  has_market: boolean;
+  has_dlc: boolean;
   playtime_disconnected: number;
 }
 
@@ -51,76 +57,95 @@ export interface quest {
   completed: boolean;
 }
 
-export class Player extends WebApi {
+export class Player {
+  #options: Options;
+  baseLink = "http://api.steampowered.com/IPlayerService/";
+
   /** */
-  constructor(key: string) {
-    super(key, "http://api.steampowered.com/IPlayerService/");
+  constructor(key: string | undefined) {
+    this.#options = new Options(key);
   }
 
-  // TODO: Find out which type it returns and if we should uncomment it
-  // public IsPlayingSharedGame(
-  //   steamid: string,
-  //   appid_playing: number,
-  // ) {
-  //   return steamWebRequest(
-  //     `${super.link}IsPlayingSharedGame/v1/?key=${super.key}&steamid=${new SteamID(
-  //       steamid,
-  //     )}&appid_playing=${appid_playing}`,
-  //   );
-  // }
-
-  public getRecentlyPlayedGames(
-    steamid: string,
-    count = 0,
-  ): Promise<{ total_count: number; games: recentGame[] }> {
-    return steamWebRequest(
-      `${super.link}GetRecentlyPlayedGames/v1/?key=${super.key}&steamid=${new SteamID(
-        steamid,
-      )}&count=${count}`,
+  // TODO: Find out which type it returns
+  public isPlayingSharedGame(args:{
+      steamid: string,
+      appid_playing: number,
+    }
+  ) {
+    const link = new Link(
+      this.baseLink,
+      "IsPlayingSharedGame/v1/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
-  public getOwnedGames(
-    steamid: string,
-    include_appinfo = false,
-    include_played_free_games = false,
-    appids_filter = 0,
-    include_free_sub = false,
-    skip_unvetted_apps = false,
-    language = "en",
-    include_extended_appinfo = false,
+  public getRecentlyPlayedGames(args: {
+    steamid: string;
+    count?: number;
+  }): Promise<{ total_count: number; games: recentGame[] }> {
+    const link = new Link(
+      this.baseLink,
+      "GetRecentlyPlayedGames/v1/",
+      this.#options.toString(args),
+    );
+
+    return steamWebRequest(link);
+  }
+
+  public getOwnedGames(args: {
+      steamid: string;
+      include_appinfo?: boolean;
+      include_played_free_games?: boolean;
+      appids_filter?: number;
+      include_free_sub?: boolean;
+      skip_unvetted_apps?: boolean;
+      language?: string;
+      include_extended_appinfo?: boolean;
+    }
   ): Promise<{ game_count: number; games: ownedGame[] }> {
-    return steamWebRequest(
-      `${super.link}GetOwnedGames/v1/?key=${super.key}&steamid=${new SteamID(
-        steamid,
-      )}&include_appinfo=${include_appinfo}&include_played_free_games=${include_played_free_games}&appids_filter=${appids_filter}&include_free_sub=${include_free_sub}&skip_unvetted_apps=${skip_unvetted_apps}&language=${language}&include_extended_appinfo=${include_extended_appinfo}`,
+    const link = new Link(
+      this.baseLink,
+      "GetOwnedGames/v1/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
-  public getSteamLevel(steamid: string): Promise<{ player_level: number }> {
-    return steamWebRequest(
-      `${super.link}GetSteamLevel/v1/?key=${super.key}&steamid=${new SteamID(
-        steamid,
-      )}`,
+  public getSteamLevel(args: {steamid: string}): Promise<{ player_level: number }> {
+    const link = new Link(
+      this.baseLink,
+      "GetSteamLevel/v1/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
-  public getBadges(steamid: string): Promise<{ badges: badges }> {
-    return steamWebRequest(
-      `${super.link}GetBadges/v1/?key=${super.key}&steamid=${new SteamID(
-        steamid,
-      )}`,
+  public getBadges(args: {steamid: string}): Promise<{ badges: badges }> {
+    const link = new Link(
+      this.baseLink,
+      "GetBadges/v1/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 
-  public getCommunityBadgeProgress(
+  public getCommunityBadgeProgress( args:  {
     steamid: string,
-    badgeid = 0,
+    badgeid?: number,
+  }
   ): Promise<{ quests: quest[] }> {
-    return steamWebRequest(
-      `${super.link}GetCommunityBadgeProgress/v1/?key=${super.key}&steamid=${new SteamID(
-        steamid,
-      )}&badgeid=${badgeid}`,
+
+    const link = new Link(
+      this.baseLink,
+      "GetCommunityBadgeProgress/v1/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 }

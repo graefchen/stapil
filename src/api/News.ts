@@ -1,4 +1,5 @@
-import { WebApi } from "../utils/WebApi.ts";
+import { Link } from "../utils/Link.ts";
+import { Options } from "../utils/Options.ts";
 import { steamWebRequest } from "../utils/WebRequest.ts";
 
 export interface newsitems {
@@ -21,21 +22,29 @@ export interface appnews {
   count: number;
 }
 
-export class News extends WebApi {
-  constructor(key: string) {
-    super(key, "http://api.steampowered.com/ISteamNews/");
+export class News {
+  #options: Options;
+  baseLink = "http://api.steampowered.com/ISteamNews/";
+
+  constructor(key: string | undefined) {
+    this.#options = new Options(key);
   }
 
-  public getNewsForApp(
-    appid: number,
-    maxlength = 0,
-    enddate = Math.floor(Date.now() / 1000),
-    count = 20,
-    feeds = "",
-    tags = "",
+  public getNewsForApp( args: {
+    appid: number;
+    maxlength?: number;
+    enddate?:number;
+    count?: number;
+    feeds?: string;
+    tags?:string;
+  }
   ): Promise<{ appnews: appnews }> {
-    return steamWebRequest(
-      `${super.link}GetNewsForApp/v2/?appid=${appid}&maxlength=${maxlength}&enddate=${enddate}&count=${count}&feeds=${feeds}&tags=${tags}`,
+    const link = new Link(
+      this.baseLink,
+      "GetNewsForApp/v2/",
+      this.#options.toString(args),
     );
+
+    return steamWebRequest(link);
   }
 }
