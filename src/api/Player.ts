@@ -1,4 +1,3 @@
-import { SteamID } from "../utils/SteamID.ts";
 import { Options } from "../utils/Options.ts";
 import { steamWebRequest } from "../utils/WebRequest.ts";
 import { Link } from "../utils/Link.ts";
