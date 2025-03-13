@@ -34,7 +34,7 @@ export interface playerStats<T> {
 export interface achievementStats {
   name: string;
   defaultvalue: number;
-  displayname: string;
+  displayName: string;
   hidden: number;
   desciption: string;
   icon: string;

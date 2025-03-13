@@ -21,6 +21,9 @@ export class Options {
       array.push(`key=${this.#key}`);
     }
     for (const [key, value] of Object.entries(args)) {
+      if (Array.isArray(value)) {
+        array.push(`${key}=${value.map((v) => String(v)).join(",")}`);
+      }
       array.push(`${key}=${value}`);
     }
     if (array.length == 0) return "";

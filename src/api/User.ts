@@ -69,7 +69,7 @@ export class User {
   // }
 
   public getPlayerSummaries(args: {
-    steamids: string;
+    steamids: string[];
   }): Promise<{ players: player[] }> {
     const link = new Link(
       this.baseLink,
